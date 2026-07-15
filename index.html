@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MENA Member Engagement — FY26–27 Goals &amp; Action Plan</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Poppins:wght@500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --blue:#041e42; --gold:#d69d23; --azure:#1f43ea;
+    --white:#fff; --ink:#1a1c1f; --paper:#f2f3f6; --paper-2:#f9f9f9; --line:#e4e6ea; --muted:#5b6675;
+    --font:'Helvetica Neue',Helvetica,Arial,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --display:'Poppins',var(--font);
+    --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--font);color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  a{color:var(--azure);}
+
+  .wrap{max-width:960px;margin:0 auto;padding:0 clamp(20px,5vw,48px);}
+
+  header.bar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px clamp(20px,5vw,48px);
+    border-bottom:1px solid var(--line);
+    background:var(--white);
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand svg{width:22px;height:22px;color:var(--gold);}
+  .brand span{font-family:var(--display);font-weight:600;font-size:.92rem;letter-spacing:.02em;color:var(--blue);}
+  .brand small{display:block;font-size:.66rem;color:var(--muted);font-weight:400;letter-spacing:.03em;}
+  .cycle-pill{
+    font-size:.72rem;font-weight:600;letter-spacing:.05em;color:var(--blue);
+    background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem;
+  }
+
+  .intro{padding:56px 0 40px;}
+  .intro .eyebrow{
+    font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+    margin:0 0 14px;
+  }
+  h1{
+    font-family:var(--display);font-weight:600;letter-spacing:-.01em;
+    font-size:clamp(1.9rem,4.2vw,2.7rem);line-height:1.12;margin:0 0 16px;color:var(--blue);max-width:20ch;
+  }
+  .intro p.lede{max-width:56ch;color:var(--muted);font-size:1.02rem;margin:0 0 24px;}
+  .owner-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .owner-row span{
+    font-size:.82rem;color:var(--blue);background:var(--white);border:1px solid var(--line);
+    border-radius:999px;padding:.4rem 1rem;
+  }
+  .owner-row span b{font-weight:600;}
+
+  .summary{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;
+    margin:36px 0 8px;
+  }
+  .summary .card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .summary .num{font-family:var(--display);font-weight:600;font-size:1.5rem;color:var(--blue);letter-spacing:-.01em;line-height:1.25;}
+  .summary .lbl{margin-top:6px;font-size:.8rem;color:var(--muted);}
+
+  main{padding:36px 0 80px;}
+  .section-heading{
+    font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+    margin:0 0 14px;display:flex;align-items:center;gap:10px;
+  }
+  .section-heading.goals-heading{margin-top:44px;}
+  section.goal{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px clamp(20px,4vw,34px);
+    margin-top:20px;
+    scroll-margin-top:90px;
+  }
+  .goal-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+  .tag{font-size:.68rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.3rem .7rem;border-radius:7px;}
+  .tag.status-working{background:rgba(214,157,35,.15);color:#8a6510;}
+  .tag.status-done{background:rgba(46,125,74,.13);color:#256b3e;}
+  .tag.status-stuck{background:rgba(249,72,104,.13);color:#a2264b;}
+  .tag.status-default{background:var(--paper);color:var(--muted);}
+  h2.goal-title{
+    font-family:var(--display);font-weight:600;letter-spacing:-.01em;
+    font-size:1.35rem;line-height:1.3;color:var(--ink);margin:0 0 18px;max-width:48ch;white-space:pre-line;
+  }
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:26px;
+    padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    margin-bottom:20px;
+  }
+  .meta-row div span{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px;}
+  .meta-row div b{font-size:.92rem;color:var(--ink);font-weight:600;}
+
+  .progress-row{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+  .progress-track{flex:1;height:6px;background:var(--paper);border-radius:4px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--azure);width:0%;transition:width .3s ease;}
+  .progress-label{font-size:.78rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+
+  ul.tasks{list-style:none;margin:0;padding:0;}
+  ul.tasks li{display:flex;align-items:flex-start;gap:12px;padding:11px 0;}
+  ul.tasks li + li{border-top:1px solid var(--line);}
+  ul.tasks input[type="checkbox"]{
+    appearance:none;-webkit-appearance:none;width:19px;height:19px;
+    border:1.5px solid var(--line);border-radius:6px;margin-top:2px;flex:none;cursor:pointer;
+    position:relative;background:var(--white);
+  }
+  ul.tasks input[type="checkbox"]:checked{background:var(--azure);border-color:var(--azure);}
+  ul.tasks input[type="checkbox"]:checked::after{
+    content:"";position:absolute;left:6px;top:2px;width:5px;height:9px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .task-main{flex:1;min-width:0;}
+  .task-text{font-size:.95rem;color:var(--ink);display:block;}
+  .task-text.done{color:var(--muted);text-decoration:line-through;}
+  .task-sub{display:flex;gap:8px;flex-wrap:wrap;margin-top:5px;}
+  .task-owner{
+    font-size:.72rem;font-weight:600;color:var(--blue);background:var(--paper);
+    border-radius:6px;padding:.15rem .5rem;
+    cursor:pointer;border:1px solid transparent;
+  }
+  .task-owner:hover{border-color:var(--azure);}
+  .task-owner.is-empty{color:var(--muted);font-style:italic;font-weight:500;}
+  .task-when{font-size:.72rem;color:var(--muted);font-weight:600;padding:.15rem .5rem;border-radius:6px;cursor:pointer;border:1px solid transparent;}
+  .task-when:hover{border-color:var(--azure);}
+  .task-when.flag{color:#a2264b;}
+  .task-when.is-empty{font-style:italic;}
+  .inline-edit{
+    font:inherit;font-size:.72rem;font-weight:600;color:var(--ink);
+    border:1px solid var(--azure);border-radius:6px;padding:.15rem .5rem;
+    background:#fff;min-width:90px;
+  }
+  .inline-edit:focus{outline:none;box-shadow:0 0 0 3px rgba(31,67,234,.12);}
+  select.inline-edit, select.add-owner{cursor:pointer;}
+  .add-row select.add-owner{
+    font:inherit;font-size:.9rem;padding:.55rem .8rem;border:1px solid var(--line);border-radius:9px;
+    background:var(--paper-2);color:var(--ink);
+  }
+  .add-row select.add-owner:focus{outline:none;border-color:var(--azure);box-shadow:0 0 0 3px rgba(31,67,234,.12);}
+  .task-remove{
+    flex:none;background:none;border:0;color:var(--muted);cursor:pointer;font-size:1.1rem;
+    line-height:1;padding:2px 4px;margin-top:1px;
+  }
+  .task-remove:hover{color:var(--azure);}
+
+  .add-row{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:16px;border-top:1px dashed var(--line);
+  }
+  .add-row input{
+    font:inherit;font-size:.9rem;padding:.55rem .8rem;border:1px solid var(--line);border-radius:9px;
+    background:var(--paper-2);color:var(--ink);
+  }
+  .add-row input:focus{outline:none;border-color:var(--azure);box-shadow:0 0 0 3px rgba(31,67,234,.12);}
+  .add-row .add-text{flex:2 1 220px;}
+  .add-row .add-owner{flex:1 1 140px;}
+  .add-row .add-when{flex:1 1 110px;}
+  .add-row button{
+    font:inherit;font-size:.85rem;font-weight:600;color:#fff;background:var(--blue);
+    border:0;border-radius:9px;padding:.55rem 1.1rem;cursor:pointer;flex:none;
+  }
+  .add-row button:hover{background:#072a5c;}
+
+  .callout{
+    font-family:var(--serif);font-style:italic;font-size:1.02rem;line-height:1.5;color:var(--blue);
+    border-left:3px solid var(--gold);padding-left:16px;margin:20px 0 0;
+  }
+
+  .comments{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);}
+  .comments-heading{
+    font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    margin:0 0 12px;
+  }
+  .comment-list{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .comment-item{background:var(--paper-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;}
+  .comment-text{font-size:.9rem;color:var(--ink);white-space:pre-wrap;}
+  .comment-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;}
+  .comment-date{font-size:.7rem;color:var(--muted);font-weight:600;}
+  .comment-remove{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.95rem;line-height:1;padding:0 2px;}
+  .comment-remove:hover{color:var(--azure);}
+  .comment-add{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;}
+  .comment-add textarea{
+    flex:1 1 260px;font:inherit;font-size:.9rem;padding:.6rem .8rem;border:1px solid var(--line);
+    border-radius:9px;background:var(--paper-2);color:var(--ink);resize:vertical;min-height:40px;
+  }
+  .comment-add textarea:focus{outline:none;border-color:var(--azure);box-shadow:0 0 0 3px rgba(31,67,234,.12);}
+  .comment-add button{
+    font:inherit;font-size:.85rem;font-weight:600;color:#fff;background:var(--blue);
+    border:0;border-radius:9px;padding:.6rem 1.1rem;cursor:pointer;flex:none;
+  }
+  .comment-add button:hover{background:#072a5c;}
+
+  footer{padding:40px clamp(20px,5vw,48px) 60px;border-top:1px solid var(--line);}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end;}
+  footer p{margin:0;font-size:.8rem;color:var(--muted);max-width:52ch;line-height:1.6;}
+  footer p b{color:var(--ink);}
+
+  @media(max-width:640px){
+    .meta-row{gap:16px;}
+    .add-row .add-text, .add-row .add-owner, .add-row .add-when{flex:1 1 100%;}
+  }
+</style>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,3 4,19 20,19"/></svg>
+    <span>YPO MENA Member Engagement<small>Synced from Monday.com</small></span>
+  </div>
+  <span class="cycle-pill">FY26–27</span>
+</header>
+
+<section class="wrap intro">
+  <p class="eyebrow">Goals &amp; action plan</p>
+  <h1>YPO Regional Member Engagement Goals</h1>
+  <p class="lede">Regional member engagement targets for July 2026 through June 2027, broken down into the subitems from your Monday.com board. Add new tasks under any goal as things come up.</p>
+  <div class="owner-row">
+    <span><b>YPO MENA Management</b> · Tamara Crowhurst</span>
+    <span><b>YPO MEO</b> · Dayala Hayeck</span>
+    <span><b>Gold MEO</b> · Hachem Ghandour</span>
+    <span><b>Cycle</b> · Jul 2026 – Jun 2027</span>
+  </div>
+
+  <div class="summary">
+    <div class="card"><div class="num">Leaderboard review</div><div class="lbl">Due 30 Jun 2027</div></div>
+    <div class="card"><div class="num">2 Reignite sessions, 50+ each</div><div class="lbl">Due 30 Jun 2027</div></div>
+    <div class="card"><div class="num">60 vouchers used</div><div class="lbl">Due 30 Nov 2026</div></div>
+    <div class="card"><div class="num">70 attend Apeiron</div><div class="lbl">Due 30 Nov 2026</div></div>
+  </div>
+</section>
+
+<main class="wrap">
+  <p class="section-heading">Housekeeping</p>
+  <div id="housekeeping-root"></div>
+  <p class="section-heading goals-heading">Goals</p>
+  <div id="goals-root"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>MENA Regional Member Engagement</b><br>Management Team: Tamara Crowhurst · YPO MEO: Dayala Hayeck (YPO Lebanon) · Gold MEO: Hachem Ghandour<br>Task data synced from the Monday.com export, 14 Jul 2026.</p>
+  </div>
+</footer>
+
+<script>
+  const HOUSEKEEPING = {
+    id: 'housekeeping',
+    title: 'Housekeeping',
+    tasks: [
+      { id:'hk-1', text:'Confirm dates for the quarterly calls so invitations can be sent well in advance.', owner:'', when:'' },
+      { id:'hk-2', text:'Agree on a regular check-in cadence (biweekly or monthly for the 3 of us) to stay aligned, track progress, and address any emerging priorities.', owner:'', when:'' },
+      { id:'hk-3', text:'Decide how to divide officer outreach between Dayala and Hachem.', owner:'Dayala Hayeck & Hachem Ghandour', when:'' },
+    ]
+  };
+
+  const GOALS = [
+    {
+      id: 'goal1',
+      title: 'Complete baseline and mid-point leaderboard review for MEO Competition',
+      owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
+      timeline: '31 Jul 2026 – 30 Jun 2027',
+      tasks: [
+        { id:'goal1-1', text:'Share baseline standings with RMEOs', owner:'Tamara Crowhurst', when:'11 Aug 2026' },
+        { id:'goal1-2', text:'Obtain Budget for Prizes', owner:'Tamara Crowhurst', when:'28 Aug 2026' },
+        { id:'goal1-3', text:'Create a communication plan for competition', owner:'Tamara Crowhurst', when:'28 Aug 2026' },
+        { id:'goal1-4', text:'Launch Leaderboard on WA Channel + Quarterly Call', owner:'Tamara Crowhurst', when:'3 Sep 2026' },
+        { id:'goal1-5', text:'Send Quarterly Updates to MEOs', owner:'Tamara Crowhurst', when:'1 Oct 2026' },
+        { id:'goal1-6', text:'Recognize Winners in 2027 RBM', owner:'Tamara Crowhurst', when:'15 May 2027' },
+      ]
+    },
+    {
+      id: 'goal2',
+      title: 'Execute 2 Reignite MENA sessions for existing members with\nat least 50 in attendance',
+      owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
+      timeline: '1 Sep 2026 – 31 Mar 2027',
+      tasks: [
+        { id:'goal2-1', text:'Presentation Finalized', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
+        { id:'goal2-2', text:'Panelists Confirmed', owner:'Tamara Crowhurst', when:'21 Aug 2026' },
+        { id:'goal2-3', text:'Promote first Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'1 Sep 2026' },
+        { id:'goal2-4', text:'Date First Reignite Session', owner:'Tamara Crowhurst', when:'15 Oct 2026' },
+        { id:'goal2-5', text:'Promote second Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'4 Jan 2027' },
+        { id:'goal2-6', text:'Date Second Reignite Session', owner:'Tamara Crowhurst', when:'12 Feb 2027' },
+        { id:'goal2-7', text:'Mark Attendees for both sessions on CVENT', owner:'Tamara Crowhurst', when:'15 Feb 2027' },
+        { id:'goal2-8', text:'Collect Survey Feedback', owner:'Tamara Crowhurst', when:'1 Mar 2027' },
+      ],
+      note: "Note: the board lists \"Build baseline scorecard for the MEO Competition\" as a subitem of goal 1 but it has no date/row of its own — you may want to add it back in with a due date."
+    },
+    {
+      id: 'goal3',
+      title: '60 New Member Vouchers are used',
+      owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
+      timeline: '1 Jul 2026 – 30 Jun 2027',
+      tasks: [
+        { id:'goal3-1', text:'Pull baseline data on unused vouchers', owner:'Tamara Crowhurst', when:'14 Jul 2026' },
+        { id:'goal3-2', text:'Create a list of all events accepting NVM', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
+        { id:'goal3-3', text:'Circulate unused-voucher list to Chapter Chairs and MEOs', owner:'Tamara Crowhurst', when:'1 Sep 2026' },
+        { id:'goal3-4', text:'Report usage progress on each quarterly MEO call', owner:'Tamara Crowhurst', when:'1 Oct 2026' },
+      ]
+    },
+    {
+      id: 'goal4',
+      title: '70 members and SPs attend Apeiron',
+      owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
+      timeline: '1 Jul 2026 – 30 Jun 2027',
+      tasks: [
+        { id:'goal4-1', text:'Reach out to Apeiron for Marketing Assets', owner:'Tamara Crowhurst', when:'17 Jul 2026' },
+        { id:'goal4-2', text:'Promote Apeiron region-wide via chapter channels', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
+        { id:'goal4-3', text:'Promote Apeiron on MEO Quarterly Calls', owner:'Tamara Crowhurst', when:'3 Sep 2026' },
+        { id:'goal4-4', text:'Track registration numbers monthly', owner:'Tamara Crowhurst', when:'18 Sep 2026' },
+        { id:'goal4-5', text:'Follow up with chapters trending below target', owner:'Tamara Crowhurst', when:'5 Oct 2026' },
+        { id:'goal4-6', text:'Confirm final attendance count', owner:'Tamara Crowhurst', when:'20 Nov 2026' },
+      ]
+    },
+  ];
+
+  const OWNER_OPTIONS = ['Tamara Crowhurst','Dayala Hayeck','Hachem Ghandour','Dayala Hayeck & Hachem Ghandour'];
+
+  const STORE_KEY = 'mena-fy2627-v3';
+
+  function loadStore(){
+    try{
+      const raw = localStorage.getItem(STORE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveStore(store){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(store)); }catch(e){}
+  }
+
+  const store = loadStore();
+  GOALS.forEach(g => {
+    if(!store[g.id]) store[g.id] = { checked:{}, extra:[], overrides:{}, comments:[] };
+    if(!store[g.id].checked) store[g.id].checked = {};
+    if(!store[g.id].extra) store[g.id].extra = [];
+    if(!store[g.id].overrides) store[g.id].overrides = {};
+    if(!store[g.id].comments) store[g.id].comments = [];
+  });
+  [HOUSEKEEPING].forEach(g => {
+    if(!store[g.id]) store[g.id] = { checked:{}, extra:[], overrides:{}, comments:[] };
+    if(!store[g.id].checked) store[g.id].checked = {};
+    if(!store[g.id].extra) store[g.id].extra = [];
+    if(!store[g.id].overrides) store[g.id].overrides = {};
+    if(!store[g.id].comments) store[g.id].comments = [];
+  });
+
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function formatStamp(iso){
+    const d = new Date(iso);
+    if(isNaN(d)) return '';
+    const datePart = d.toLocaleDateString(undefined,{ day:'numeric', month:'short', year:'numeric' });
+    const timePart = d.toLocaleTimeString(undefined,{ hour:'numeric', minute:'2-digit' });
+    return datePart + ' · ' + timePart;
+  }
+
+  function statusClass(status){
+    const s = (status||'').toLowerCase();
+    if(s.includes('done') || s.includes('complete')) return 'status-done';
+    if(s.includes('stuck')) return 'status-stuck';
+    if(s.includes('working')) return 'status-working';
+    return 'status-default';
+  }
+
+  function renderGoal(g){
+    const gs = store[g.id];
+    const baseTasks = g.tasks.map(t => {
+      const ov = gs.overrides[t.id];
+      return ov ? Object.assign({}, t, ov) : t;
+    });
+    const allTasks = baseTasks.concat(gs.extra);
+    const total = allTasks.length;
+    const checkedCount = allTasks.filter(t => gs.checked[t.id]).length;
+    const pct = total ? Math.round((checkedCount/total)*100) : 0;
+
+    const taskRows = allTasks.map(t => {
+      const done = !!gs.checked[t.id];
+      const removable = t.__extra ? '<button class="task-remove" data-remove="'+t.id+'" title="Remove task" aria-label="Remove task">&times;</button>' : '';
+      const ownerVal = t.owner || '';
+      const whenVal = t.when || '';
+      return '<li>'
+        + '<input type="checkbox" data-task="'+t.id+'" '+(done?'checked':'')+'>'
+        + '<span class="task-main">'
+          + '<span class="task-text'+(done?' done':'')+'">'+esc(t.text)+'</span>'
+          + '<span class="task-sub">'
+            + '<span class="task-owner'+(ownerVal?'':' is-empty')+'" data-field="owner" data-task-id="'+t.id+'" title="Click to edit owner">'+(ownerVal?esc(ownerVal):'+ owner')+'</span>'
+            + '<span class="task-when'+(t.flag?' flag':'')+(whenVal?'':' is-empty')+'" data-field="when" data-task-id="'+t.id+'" title="Click to edit due date">'+(whenVal?esc(whenVal):'+ due date')+'</span>'
+          + '</span>'
+        + '</span>'
+        + removable
+        + '</li>';
+    }).join('');
+
+    return ''
+      + '<section class="goal" id="'+g.id+'" data-goal="'+g.id+'">'
+        + (g.status ? (
+            '<div class="goal-top">'
+              + '<span class="tag '+statusClass(g.status)+'">'+esc(g.status)+'</span>'
+            + '</div>'
+          ) : '')
+        + '<h2 class="goal-title">'+esc(g.title)+'</h2>'
+        + (g.owner || g.due || g.timeline ? (
+            '<div class="meta-row">'
+              + (g.owner ? '<div><span>YPO MENA Management</span><b>'+esc(g.owner)+'</b></div>' : '')
+              + (g.due ? '<div><span>Due date</span><b>'+esc(g.due)+'</b></div>' : '')
+              + (g.timeline ? '<div><span>Timeline</span><b>'+esc(g.timeline)+'</b></div>' : '')
+            + '</div>'
+          ) : '')
+        + '<div class="progress-row">'
+          + '<div class="progress-track"><div class="progress-fill" data-progress-fill style="width:'+pct+'%"></div></div>'
+          + '<span class="progress-label" data-progress-label>'+checkedCount+' / '+total+'</span>'
+        + '</div>'
+        + '<ul class="tasks" data-task-list>'+taskRows+'</ul>'
+        + '<div class="add-row">'
+          + '<input type="text" class="add-text" placeholder="Add a task..." data-add-text>'
+          + '<select class="add-owner" data-add-owner><option value="">Owner...</option>'+OWNER_OPTIONS.map(o=>'<option value="'+esc(o)+'">'+esc(o)+'</option>').join('')+'</select>'
+          + '<input type="text" class="add-when" placeholder="Due (e.g. Mar 2027)" data-add-when>'
+          + '<button type="button" data-add-btn>Add</button>'
+        + '</div>'
+        + (g.note ? '<p class="callout">'+esc(g.note)+'</p>' : '')
+        + '<div class="comments" data-comments>'
+          + '<p class="comments-heading">Comments</p>'
+          + '<ul class="comment-list">'
+            + gs.comments.map(c =>
+                '<li class="comment-item">'
+                  + '<div class="comment-text">'+esc(c.text)+'</div>'
+                  + '<div class="comment-meta">'
+                    + '<span class="comment-date">'+esc(formatStamp(c.ts))+'</span>'
+                    + '<button class="comment-remove" data-remove-comment="'+c.id+'" title="Remove comment" aria-label="Remove comment">&times;</button>'
+                  + '</div>'
+                + '</li>'
+              ).join('')
+          + '</ul>'
+          + '<div class="comment-add">'
+            + '<textarea placeholder="Add a comment..." data-comment-input rows="1"></textarea>'
+            + '<button type="button" data-comment-btn>Add comment</button>'
+          + '</div>'
+        + '</div>'
+      + '</section>';
+  }
+
+  function renderAll(){
+    document.getElementById('housekeeping-root').innerHTML = renderGoal(HOUSEKEEPING);
+    document.getElementById('goals-root').innerHTML = GOALS.map(renderGoal).join('');
+    wireEvents();
+  }
+
+  function wireEvents(){
+    [HOUSEKEEPING, ...GOALS].forEach(g => {
+      const section = document.getElementById(g.id);
+      const gs = store[g.id];
+
+      section.querySelectorAll('input[type="checkbox"][data-task]').forEach(cb => {
+        cb.addEventListener('change', () => {
+          gs.checked[cb.dataset.task] = cb.checked;
+          saveStore(store);
+          updateProgress(g);
+          const textEl = cb.parentElement.querySelector('.task-text');
+          if(textEl) textEl.classList.toggle('done', cb.checked);
+        });
+      });
+
+      section.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.remove;
+          gs.extra = gs.extra.filter(t => t.id !== id);
+          delete gs.checked[id];
+          delete gs.overrides[id];
+          saveStore(store);
+          renderAll();
+        });
+      });
+
+      section.querySelectorAll('[data-field]').forEach(span => {
+        span.addEventListener('click', () => {
+          const field = span.dataset.field;
+          const taskId = span.dataset.taskId;
+          const currentText = span.textContent.trim().replace(/^\+\s*/, '');
+          const startVal = (currentText === 'owner' || currentText === 'due date') ? '' : currentText;
+
+          let input;
+          if(field === 'owner'){
+            input = document.createElement('select');
+            input.className = 'inline-edit';
+            const opts = ['', ...OWNER_OPTIONS];
+            input.innerHTML = opts.map(o => '<option value="'+esc(o)+'"'+(o===startVal?' selected':'')+'>'+(o?esc(o):'Owner...')+'</option>').join('');
+          } else {
+            input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'inline-edit';
+            input.value = startVal;
+            input.placeholder = 'e.g. Mar 2027';
+          }
+
+          span.replaceWith(input);
+          input.focus();
+
+          function commit(){
+            const val = input.value.trim();
+            if(!gs.overrides[taskId]) gs.overrides[taskId] = {};
+            const extraTask = gs.extra.find(t => t.id === taskId);
+            if(extraTask){
+              extraTask[field] = val;
+            } else {
+              gs.overrides[taskId][field] = val;
+            }
+            saveStore(store);
+            renderAll();
+          }
+
+          if(field === 'owner'){
+            input.addEventListener('change', commit);
+            input.addEventListener('blur', commit);
+          } else {
+            input.addEventListener('blur', commit);
+            input.addEventListener('keydown', e => {
+              if(e.key === 'Enter'){ e.preventDefault(); input.blur(); }
+              if(e.key === 'Escape'){ e.preventDefault(); renderAll(); }
+            });
+          }
+        });
+      });
+
+      const addBtn = section.querySelector('[data-add-btn]');
+      const addText = section.querySelector('[data-add-text]');
+      const addOwner = section.querySelector('[data-add-owner]');
+      const addWhen = section.querySelector('[data-add-when]');
+
+      function submitAdd(){
+        const text = addText.value.trim();
+        if(!text) { addText.focus(); return; }
+        const owner = addOwner.value.trim();
+        const when = addWhen.value.trim();
+        const id = g.id + '-x' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+        gs.extra.push({ id, text, owner, when, __extra:true });
+        gs.checked[id] = false;
+        saveStore(store);
+        renderAll();
+        const newSection = document.getElementById(g.id);
+        const newAddText = newSection.querySelector('[data-add-text]');
+        if(newAddText) newAddText.focus();
+      }
+
+      addBtn.addEventListener('click', submitAdd);
+      [addText, addOwner, addWhen].forEach(inp => {
+        inp.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); submitAdd(); } });
+      });
+
+      section.querySelectorAll('[data-remove-comment]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.removeComment;
+          gs.comments = gs.comments.filter(c => c.id !== id);
+          saveStore(store);
+          renderAll();
+        });
+      });
+
+      const commentInput = section.querySelector('[data-comment-input]');
+      const commentBtn = section.querySelector('[data-comment-btn]');
+
+      function submitComment(){
+        const text = commentInput.value.trim();
+        if(!text){ commentInput.focus(); return; }
+        const id = g.id + '-c' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+        gs.comments.push({ id, text, ts: new Date().toISOString() });
+        saveStore(store);
+        renderAll();
+      }
+
+      if(commentBtn){
+        commentBtn.addEventListener('click', submitComment);
+        commentInput.addEventListener('keydown', e => {
+          if(e.key === 'Enter' && (e.metaKey || e.ctrlKey)){ e.preventDefault(); submitComment(); }
+        });
+      }
+    });
+  }
+
+  function updateProgress(g){
+    const gs = store[g.id];
+    const baseTasks = g.tasks.map(t => {
+      const ov = gs.overrides[t.id];
+      return ov ? Object.assign({}, t, ov) : t;
+    });
+    const allTasks = baseTasks.concat(gs.extra);
+    const total = allTasks.length;
+    const checkedCount = allTasks.filter(t => gs.checked[t.id]).length;
+    const pct = total ? Math.round((checkedCount/total)*100) : 0;
+    const section = document.getElementById(g.id);
+    section.querySelector('[data-progress-fill]').style.width = pct + '%';
+    section.querySelector('[data-progress-label]').textContent = checkedCount + ' / ' + total;
+  }
+
+  renderAll();
+</script>
+
+</body>
+</html>
