@@ -107,6 +107,26 @@
     margin:0 0 14px;display:flex;align-items:center;gap:10px;
   }
   .section-heading.goals-heading{margin-top:44px;}
+  .section-heading.calls-heading{margin-top:44px;}
+
+  .calls-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:8px;
+  }
+  .call-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .call-card.pending{background:var(--paper-2);border-style:dashed;}
+  .call-q{
+    font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--azure);
+    margin-bottom:8px;
+  }
+  .call-card.pending .call-q{color:var(--muted);}
+  .call-title{font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--ink);line-height:1.35;margin-bottom:10px;}
+  .call-meta{font-size:.82rem;color:var(--muted);line-height:1.6;}
+  .call-meta b{color:var(--ink);font-weight:600;}
+  .call-meta a{color:var(--azure);word-break:break-all;}
+  .call-pending-note{font-size:.82rem;color:var(--muted);font-style:italic;}
   section.goal{
     background:var(--white);
     border:1px solid var(--line);
@@ -292,6 +312,10 @@
 <main class="wrap">
   <p class="section-heading">Housekeeping</p>
   <div id="housekeeping-root"></div>
+
+  <p class="section-heading calls-heading">Quarterly Calls</p>
+  <div id="calls-root"></div>
+
   <p class="section-heading goals-heading">Goals</p>
   <div id="goals-root"></div>
 </main>
@@ -312,6 +336,40 @@
       { id:'hk-3', text:'Decide how to divide officer outreach between Dayala and Hachem.', owner:'Dayala Hayeck & Hachem Ghandour', when:'' },
     ]
   };
+
+  const QUARTERLY_CALLS = [
+    {
+      q: 'Q1 · FY26–27',
+      title: 'YPO MENA Member Engagement Officer Quarterly Call',
+      date: '3 Sep 2026',
+      link: 'https://ypo.zoom.us/j/97013867082?from=addon',
+      location: 'Online',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+    {
+      q: 'Q2 · FY26–27',
+      title: 'MENA Mastery',
+      date: '21 Nov 2026',
+      location: 'In person',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+    {
+      q: 'Q3 · FY26–27',
+      title: 'YPO MENA Member Engagement Officer Quarterly Call',
+      date: '8 Mar 2027',
+      link: 'https://ypo.zoom.us/j/92746800184?from=addon',
+      location: 'Online',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+    {
+      q: 'Q4 · FY26–27',
+      title: 'YPO MENA Member Engagement Officer Quarterly Call & Handover',
+      date: '25 May 2027',
+      link: 'https://ypo.zoom.us/j/94734888020?from=addon',
+      location: 'Online',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+  ];
 
   const GOALS = [
     {
@@ -504,8 +562,30 @@
       + '</section>';
   }
 
+  function renderCalls(){
+    return '<div class="calls-grid">' + QUARTERLY_CALLS.map(c => {
+      if(c.pending){
+        return '<div class="call-card pending">'
+          + '<div class="call-q">'+esc(c.q)+'</div>'
+          + '<div class="call-title">Date not yet confirmed</div>'
+          + '<div class="call-pending-note">See Housekeeping — confirm this date so invitations can go out in advance.</div>'
+        + '</div>';
+      }
+      return '<div class="call-card">'
+        + '<div class="call-q">'+esc(c.q)+'</div>'
+        + '<div class="call-title">'+esc(c.title)+'</div>'
+        + '<div class="call-meta">'
+          + '<b>'+esc(c.date)+'</b> · '+esc(c.location)+'<br>'
+          + (c.link ? '<a href="'+esc(c.link)+'" target="_blank" rel="noopener">'+esc(c.link)+'</a><br>' : '')
+          + 'Portfolio: '+esc(c.portfolio)
+        + '</div>'
+      + '</div>';
+    }).join('') + '</div>';
+  }
+
   function renderAll(){
     document.getElementById('housekeeping-root').innerHTML = renderGoal(HOUSEKEEPING);
+    document.getElementById('calls-root').innerHTML = renderCalls();
     document.getElementById('goals-root').innerHTML = GOALS.map(renderGoal).join('');
     wireEvents();
   }
