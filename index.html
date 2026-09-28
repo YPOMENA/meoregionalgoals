@@ -38,6 +38,40 @@
     font-size:.72rem;font-weight:600;letter-spacing:.05em;color:var(--blue);
     background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem;
   }
+  .bar-right{display:flex;align-items:center;gap:12px;}
+  .export-btn{
+    font:inherit;font-size:.76rem;font-weight:600;color:var(--azure);background:#fff;
+    border:1px solid var(--line);border-radius:999px;padding:.4rem .9rem;cursor:pointer;
+  }
+  .export-btn:hover{border-color:var(--azure);}
+
+  .export-overlay{
+    position:fixed;inset:0;background:rgba(4,30,66,.55);display:none;
+    align-items:center;justify-content:center;padding:20px;z-index:100;
+  }
+  .export-overlay.open{display:flex;}
+  .export-modal{
+    background:#fff;border-radius:var(--radius);max-width:560px;width:100%;
+    padding:24px 26px 26px;box-shadow:0 20px 50px rgba(0,0,0,.25);
+  }
+  .export-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .export-modal-head h3{font-family:var(--display);font-size:1.15rem;color:var(--blue);}
+  .export-close{background:none;border:0;font-size:1.4rem;line-height:1;color:var(--muted);cursor:pointer;}
+  .export-close:hover{color:var(--azure);}
+  .export-desc{font-size:.85rem;color:var(--muted);margin:0 0 14px;}
+  .export-text{
+    width:100%;min-height:160px;font-family:'IBM Plex Mono',monospace,var(--font);font-size:.78rem;
+    padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--paper-2);color:var(--ink);
+    resize:vertical;
+  }
+  .export-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .export-action-btn{
+    font:inherit;font-size:.85rem;font-weight:600;border-radius:9px;padding:.6rem 1.1rem;cursor:pointer;
+    border:1px solid var(--line);background:#fff;color:var(--ink);
+  }
+  .export-action-btn.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+  .export-action-btn.primary:hover{background:#072a5c;}
+  .export-action-btn:hover{border-color:var(--azure);}
 
   .intro{padding:56px 0 40px;}
   .intro .eyebrow{
@@ -73,6 +107,26 @@
     margin:0 0 14px;display:flex;align-items:center;gap:10px;
   }
   .section-heading.goals-heading{margin-top:44px;}
+  .section-heading.calls-heading{margin-top:44px;}
+
+  .calls-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:8px;
+  }
+  .call-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .call-card.pending{background:var(--paper-2);border-style:dashed;}
+  .call-q{
+    font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--azure);
+    margin-bottom:8px;
+  }
+  .call-card.pending .call-q{color:var(--muted);}
+  .call-title{font-family:var(--display);font-weight:600;font-size:.95rem;color:var(--ink);line-height:1.35;margin-bottom:10px;}
+  .call-meta{font-size:.82rem;color:var(--muted);line-height:1.6;}
+  .call-meta b{color:var(--ink);font-weight:600;}
+  .call-meta a{color:var(--azure);word-break:break-all;}
+  .call-pending-note{font-size:.82rem;color:var(--muted);font-style:italic;}
   section.goal{
     background:var(--white);
     border:1px solid var(--line);
@@ -215,8 +269,26 @@
     <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,3 4,19 20,19"/></svg>
     <span>YPO MENA Member Engagement<small>Synced from Monday.com</small></span>
   </div>
-  <span class="cycle-pill">FY26–27</span>
+  <div class="bar-right">
+    <button type="button" class="export-btn" id="export-btn">Export my data</button>
+    <span class="cycle-pill">FY26–27</span>
+  </div>
 </header>
+
+<div class="export-overlay" id="export-overlay">
+  <div class="export-modal">
+    <div class="export-modal-head">
+      <h3>Export your data</h3>
+      <button type="button" class="export-close" id="export-close" aria-label="Close">&times;</button>
+    </div>
+    <p class="export-desc">This is everything you've checked off, added, edited, or commented on this device — copy it or download it, then send it back so it can be baked into the next version of the page.</p>
+    <textarea class="export-text" id="export-text" readonly></textarea>
+    <div class="export-actions">
+      <button type="button" class="export-action-btn primary" id="export-copy">Copy to clipboard</button>
+      <button type="button" class="export-action-btn" id="export-download">Download as file</button>
+    </div>
+  </div>
+</div>
 
 <section class="wrap intro">
   <p class="eyebrow">Goals &amp; action plan</p>
@@ -240,13 +312,17 @@
 <main class="wrap">
   <p class="section-heading">Housekeeping</p>
   <div id="housekeeping-root"></div>
+
+  <p class="section-heading calls-heading">Quarterly Calls</p>
+  <div id="calls-root"></div>
+
   <p class="section-heading goals-heading">Goals</p>
   <div id="goals-root"></div>
 </main>
 
 <footer>
   <div class="wrap">
-    <p><b>MENA Regional Member Engagement</b><br>Management Team: Tamara Crowhurst · YPO MEO: Dayala Hayeck (YPO Lebanon) · Gold MEO: Hachem Ghandour<br>Task data synced from the Monday.com export, 14 Jul 2026.</p>
+    <p><b>MENA Regional Member Engagement</b><br>Management Team: Tamara Crowhurst · YPO MEO: Dayala Hayeck (YPO Lebanon) · Gold MEO: Hachem Ghandour<br>Task data synced from the Monday.com export, 26 Aug 2026.</p>
   </div>
 </footer>
 
@@ -261,6 +337,40 @@
     ]
   };
 
+  const QUARTERLY_CALLS = [
+    {
+      q: 'Q1 · FY26–27',
+      title: 'YPO MENA Member Engagement Officer Quarterly Call',
+      date: '3 Sep 2026',
+      link: 'https://ypo.zoom.us/j/97013867082?from=addon',
+      location: 'Online',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+    {
+      q: 'Q2 · FY26–27',
+      title: 'MENA Mastery',
+      date: '21 Nov 2026',
+      location: 'In person',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+    {
+      q: 'Q3 · FY26–27',
+      title: 'YPO MENA Member Engagement Officer Quarterly Call',
+      date: '8 Mar 2027',
+      link: 'https://ypo.zoom.us/j/92746800184?from=addon',
+      location: 'Online',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+    {
+      q: 'Q4 · FY26–27',
+      title: 'YPO MENA Member Engagement Officer Quarterly Call & Handover',
+      date: '25 May 2027',
+      link: 'https://ypo.zoom.us/j/94734888020?from=addon',
+      location: 'Online',
+      portfolio: 'Chapter Member Engagement Officers',
+    },
+  ];
+
   const GOALS = [
     {
       id: 'goal1',
@@ -268,10 +378,10 @@
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
       timeline: '31 Jul 2026 – 30 Jun 2027',
       tasks: [
-        { id:'goal1-1', text:'Share baseline standings with RMEOs', owner:'Tamara Crowhurst', when:'11 Aug 2026' },
-        { id:'goal1-2', text:'Obtain Budget for Prizes', owner:'Tamara Crowhurst', when:'28 Aug 2026' },
-        { id:'goal1-3', text:'Create a communication plan for competition', owner:'Tamara Crowhurst', when:'28 Aug 2026' },
-        { id:'goal1-4', text:'Launch Leaderboard on WA Channel + Quarterly Call', owner:'Tamara Crowhurst', when:'3 Sep 2026' },
+        { id:'goal1-1', text:'Share baseline standings with RMEOs', owner:'Tamara Crowhurst', when:'11 Aug 2026', defaultChecked:true },
+        { id:'goal1-2', text:'Obtain Budget for Prizes', owner:'Tamara Crowhurst', when:'28 Aug 2026', defaultChecked:true },
+        { id:'goal1-3', text:'Create a communication plan for competition', owner:'Tamara Crowhurst', when:'28 Aug 2026', defaultChecked:true },
+        { id:'goal1-4', text:'Launch Leaderboard on WA Channel + Quarterly Call', owner:'Tamara Crowhurst', when:'3 Sep 2026', defaultChecked:true },
         { id:'goal1-5', text:'Send Quarterly Updates to MEOs', owner:'Tamara Crowhurst', when:'1 Oct 2026' },
         { id:'goal1-6', text:'Recognize Winners in 2027 RBM', owner:'Tamara Crowhurst', when:'15 May 2027' },
       ]
@@ -282,16 +392,16 @@
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
       timeline: '1 Sep 2026 – 30 Apr 2027',
       tasks: [
-        { id:'goal2-1', text:'Presentation Finalized', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
-        { id:'goal2-2', text:'Panelists Confirmed', owner:'Tamara Crowhurst', when:'21 Aug 2026' },
-        { id:'goal2-3', text:'Promote first Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'1 Sep 2026' },
+        { id:'goal2-1', text:'Presentation Finalized', owner:'Tamara Crowhurst', when:'14 Aug 2026', defaultChecked:true },
+        { id:'goal2-2', text:'Panelists Confirmed', owner:'Tamara Crowhurst', when:'4 Sep 2026' },
+        { id:'goal2-3', text:'Promote first Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'2 Nov 2026' },
         { id:'goal2-4', text:'Date First Reignite Session', owner:'Tamara Crowhurst', when:'8 Dec 2026' },
-        { id:'goal2-5', text:'Promote second Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'4 Jan 2027' },
+        { id:'goal2-5', text:'Promote second Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'1 Feb 2027' },
         { id:'goal2-6', text:'Date Second Reignite Session', owner:'Tamara Crowhurst', when:'14 Apr 2027' },
         { id:'goal2-7', text:'Mark Attendees for both sessions on CVENT', owner:'Tamara Crowhurst', when:'23 Apr 2027' },
         { id:'goal2-8', text:'Collect Survey Feedback', owner:'Tamara Crowhurst', when:'30 Apr 2027' },
       ],
-      note: "Note: the board lists \"Build baseline scorecard for the MEO Competition\" as a subitem of goal 1 but it has no date/row of its own — you may want to add it back in with a due date."
+      note: "Note: the board lists \"Build baseline scorecard for the MEO Competition\" as a subitem of goal 1 but it still has no date/row of its own — you may want to add it back in with a due date."
     },
     {
       id: 'goal3',
@@ -300,9 +410,9 @@
       timeline: '1 Jul 2026 – 30 Jun 2027',
       progress: { current: 9, target: 60, label: 'Vouchers used since Sep' },
       tasks: [
-        { id:'goal3-1', text:'Pull baseline data on unused vouchers', owner:'Tamara Crowhurst', when:'14 Jul 2026' },
+        { id:'goal3-1', text:'Pull baseline data on unused vouchers', owner:'Tamara Crowhurst', when:'14 Jul 2026', defaultChecked:true },
         { id:'goal3-2', text:'Create a list of all events accepting NVM', owner:'Tamara Crowhurst', when:'31 Oct 2026' },
-        { id:'goal3-3', text:'Circulate unused-voucher list to Chapter Chairs and MEOs', owner:'Tamara Crowhurst', when:'1 Sep 2026' },
+        { id:'goal3-3', text:'Circulate unused-voucher list to Chapter Chairs and MEOs', owner:'Tamara Crowhurst', when:'1 Sep 2026', defaultChecked:true },
         { id:'goal3-4', text:'Report usage progress on each quarterly MEO call', owner:'Tamara Crowhurst', when:'1 Oct 2026' },
       ]
     },
@@ -313,9 +423,9 @@
       timeline: '1 Jul 2026 – 30 Jun 2027',
       progress: { current: 55, target: 70, label: 'Attendees so far' },
       tasks: [
-        { id:'goal4-1', text:'Reach out to Apeiron for Marketing Assets', owner:'Tamara Crowhurst', when:'17 Jul 2026' },
+        { id:'goal4-1', text:'Reach out to Apeiron for Marketing Assets', owner:'Tamara Crowhurst', when:'17 Jul 2026', defaultChecked:true },
         { id:'goal4-2', text:'Promote Apeiron region-wide via chapter channels', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
-        { id:'goal4-3', text:'Promote Apeiron on MEO Quarterly Calls', owner:'Tamara Crowhurst', when:'3 Sep 2026' },
+        { id:'goal4-3', text:'Promote Apeiron on MEO Quarterly Calls', owner:'Tamara Crowhurst', when:'3 Sep 2026', defaultChecked:true },
         { id:'goal4-4', text:'Track registration numbers monthly', owner:'Tamara Crowhurst', when:'18 Sep 2026' },
         { id:'goal4-5', text:'Follow up with chapters trending below target', owner:'Tamara Crowhurst', when:'5 Oct 2026' },
         { id:'goal4-6', text:'Confirm final attendance count', owner:'Tamara Crowhurst', when:'20 Nov 2026' },
@@ -357,6 +467,10 @@
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
+  function isDone(gs, t){
+    return Object.prototype.hasOwnProperty.call(gs.checked, t.id) ? !!gs.checked[t.id] : !!t.defaultChecked;
+  }
+
   function formatStamp(iso){
     const d = new Date(iso);
     if(isNaN(d)) return '';
@@ -373,19 +487,27 @@
     return 'status-default';
   }
 
+  // A browser-side edit only sticks while the page's own value is unchanged;
+  // once the page is updated (e.g. re-synced from Monday.com) the new value wins.
+  function applyOverride(t, ov){
+    if(!ov) return t;
+    const out = Object.assign({}, t);
+    ['owner','when'].forEach(field => {
+      if(Object.prototype.hasOwnProperty.call(ov, field) && ov['base_'+field] === (t[field] || '')) out[field] = ov[field];
+    });
+    return out;
+  }
+
   function renderGoal(g){
     const gs = store[g.id];
-    const baseTasks = g.tasks.map(t => {
-      const ov = gs.overrides[t.id];
-      return ov ? Object.assign({}, t, ov) : t;
-    });
+    const baseTasks = g.tasks.map(t => applyOverride(t, gs.overrides[t.id]));
     const allTasks = baseTasks.concat(gs.extra);
     const total = allTasks.length;
-    const checkedCount = allTasks.filter(t => gs.checked[t.id]).length;
+    const checkedCount = allTasks.filter(t => isDone(gs, t)).length;
     const pct = total ? Math.round((checkedCount/total)*100) : 0;
 
     const taskRows = allTasks.map(t => {
-      const done = !!gs.checked[t.id];
+      const done = isDone(gs, t);
       const removable = t.__extra ? '<button class="task-remove" data-remove="'+t.id+'" title="Remove task" aria-label="Remove task">&times;</button>' : '';
       const ownerVal = t.owner || '';
       const whenVal = t.when || '';
@@ -451,8 +573,30 @@
       + '</section>';
   }
 
+  function renderCalls(){
+    return '<div class="calls-grid">' + QUARTERLY_CALLS.map(c => {
+      if(c.pending){
+        return '<div class="call-card pending">'
+          + '<div class="call-q">'+esc(c.q)+'</div>'
+          + '<div class="call-title">Date not yet confirmed</div>'
+          + '<div class="call-pending-note">See Housekeeping — confirm this date so invitations can go out in advance.</div>'
+        + '</div>';
+      }
+      return '<div class="call-card">'
+        + '<div class="call-q">'+esc(c.q)+'</div>'
+        + '<div class="call-title">'+esc(c.title)+'</div>'
+        + '<div class="call-meta">'
+          + '<b>'+esc(c.date)+'</b> · '+esc(c.location)+'<br>'
+          + (c.link ? '<a href="'+esc(c.link)+'" target="_blank" rel="noopener">'+esc(c.link)+'</a><br>' : '')
+          + 'Portfolio: '+esc(c.portfolio)
+        + '</div>'
+      + '</div>';
+    }).join('') + '</div>';
+  }
+
   function renderAll(){
     document.getElementById('housekeeping-root').innerHTML = renderGoal(HOUSEKEEPING);
+    document.getElementById('calls-root').innerHTML = renderCalls();
     document.getElementById('goals-root').innerHTML = GOALS.map(renderGoal).join('');
     wireEvents();
   }
@@ -515,6 +659,8 @@
               extraTask[field] = val;
             } else {
               gs.overrides[taskId][field] = val;
+              const baseTask = g.tasks.find(t => t.id === taskId);
+              gs.overrides[taskId]['base_'+field] = baseTask ? (baseTask[field] || '') : '';
             }
             saveStore(store);
             renderAll();
@@ -590,13 +736,10 @@
 
   function updateProgress(g){
     const gs = store[g.id];
-    const baseTasks = g.tasks.map(t => {
-      const ov = gs.overrides[t.id];
-      return ov ? Object.assign({}, t, ov) : t;
-    });
+    const baseTasks = g.tasks.map(t => applyOverride(t, gs.overrides[t.id]));
     const allTasks = baseTasks.concat(gs.extra);
     const total = allTasks.length;
-    const checkedCount = allTasks.filter(t => gs.checked[t.id]).length;
+    const checkedCount = allTasks.filter(t => isDone(gs, t)).length;
     const pct = total ? Math.round((checkedCount/total)*100) : 0;
     const section = document.getElementById(g.id);
     section.querySelector('[data-progress-fill]').style.width = pct + '%';
@@ -604,6 +747,67 @@
   }
 
   renderAll();
+
+  // ---- Export my data ----
+  const exportBtn = document.getElementById('export-btn');
+  const exportOverlay = document.getElementById('export-overlay');
+  const exportClose = document.getElementById('export-close');
+  const exportText = document.getElementById('export-text');
+  const exportCopy = document.getElementById('export-copy');
+  const exportDownload = document.getElementById('export-download');
+
+  function buildExportPayload(){
+    return JSON.stringify({
+      exportedAt: new Date().toISOString(),
+      source: 'YPO MENA Member Engagement FY26-27 dashboard',
+      storeKey: STORE_KEY,
+      data: store
+    }, null, 2);
+  }
+
+  function openExport(){
+    exportText.value = buildExportPayload();
+    exportOverlay.classList.add('open');
+    exportText.focus();
+    exportText.select();
+  }
+  function closeExport(){
+    exportOverlay.classList.remove('open');
+  }
+
+  if(exportBtn){
+    exportBtn.addEventListener('click', openExport);
+    exportClose.addEventListener('click', closeExport);
+    exportOverlay.addEventListener('click', e => { if(e.target === exportOverlay) closeExport(); });
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeExport(); });
+
+    exportCopy.addEventListener('click', () => {
+      exportText.select();
+      try{
+        navigator.clipboard.writeText(exportText.value).then(() => {
+          exportCopy.textContent = 'Copied!';
+          setTimeout(() => { exportCopy.textContent = 'Copy to clipboard'; }, 1600);
+        });
+      }catch(e){
+        document.execCommand('copy');
+        exportCopy.textContent = 'Copied!';
+        setTimeout(() => { exportCopy.textContent = 'Copy to clipboard'; }, 1600);
+      }
+    });
+
+    exportDownload.addEventListener('click', () => {
+      const blob = new Blob([exportText.value], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const stamp = new Date().toISOString().slice(0,10);
+      a.href = url;
+      a.download = 'mena-fy2627-export-' + stamp + '.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
 </script>
 
 </body>
