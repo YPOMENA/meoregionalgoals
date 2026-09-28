@@ -276,6 +276,7 @@
   .agenda .g{display:block;font-size:.72rem;color:var(--muted);margin-top:2px;}
   .agenda li.event .d{color:var(--gold);}
   .agenda li.event .t{font-weight:600;}
+  .agenda li.past{opacity:.45;}
   .agenda.overdue .d{color:#a2264b;}
   .panel-empty{font-size:.88rem;color:var(--muted);margin:0;}
 
@@ -520,13 +521,10 @@
     },
   ];
 
-  // Fixed-date events shown in "Coming up" alongside tasks.
+  // Shown under "Important Dates" together with the quarterly calls.
   const KEY_EVENTS = [
-    { date:'18 Nov 2026', text:'Apeiron – Dubai (18–19 Nov)', goal:'goal4' },
-    { date:'21 Nov 2026', text:'MENA Mastery – Dubai' },
-    { date:'15 Mar 2027', text:'GLC Bangkok (15–16 Mar)' },
-    { date:'4 Apr 2027',  text:'CRC Leadership Meeting – Muscat (4–7 Apr)' },
-    { date:'3 May 2027',  text:'GLC & EDGE San Diego (3–6 May)' },
+    { date:'18 Nov 2026', text:'Apeiron – Dubai', sub:'18–19 Nov' },
+    { date:'18 Nov 2026', text:'Q2 REX – Dubai (TBC)', sub:'18–20 Nov' },
   ];
 
   const OWNER_OPTIONS = ['Tamara Crowhurst','Dayala Hayeck','Hachem Ghandour','Dayala Hayeck & Hachem Ghandour'];
@@ -652,13 +650,13 @@
   function renderAgenda(){
     const items = [];
     GOALS.concat(HOUSEKEEPING).forEach(g => goalTasks(g).forEach(x => { if(!x.done && x.date) items.push({ date:x.date, text:x.task.text, goal:g.short || g.title, overdue:x.date < TODAY }); }));
-    KEY_EVENTS.forEach(e => { const d = parseWhen(e.date); if(d && d >= TODAY) items.push({ date:d, text:e.text, event:true }); });
-    QUARTERLY_CALLS.forEach(c => { const d = parseWhen(c.date); if(d && d >= TODAY) items.push({ date:d, text:c.title, goal:c.q, event:true }); });
-    items.sort((a,b) => a.date - b.date);
-    const upcoming = items.filter(i => !i.overdue).slice(0, 7);
-    const overdue = items.filter(i => i.overdue);
-    document.getElementById('next-root').innerHTML = '<p class="panel-title">Coming up</p>'
-      + (upcoming.length ? '<ul class="agenda">'+upcoming.map(i => agendaRow(i.date, i.text, i.goal, i.event ? 'event' : '')).join('')+'</ul>' : '<p class="panel-empty">Nothing scheduled.</p>');
+    const overdue = items.filter(i => i.overdue).sort((a,b) => a.date - b.date);
+
+    const dates = KEY_EVENTS.map(e => ({ date:parseWhen(e.date), text:e.text, sub:e.sub }))
+      .concat(QUARTERLY_CALLS.map(c => ({ date:parseWhen(c.date), text:c.title, sub:c.q.replace(' · FY26–27', '') + ' quarterly call · ' + c.location })))
+      .filter(i => i.date).sort((a,b) => a.date - b.date);
+    document.getElementById('next-root').innerHTML = '<p class="panel-title">Important Dates</p>'
+      + '<ul class="agenda">'+dates.map(i => agendaRow(i.date, i.text, i.sub, i.date < TODAY ? 'event past' : 'event')).join('')+'</ul>';
     document.getElementById('overdue-root').innerHTML = '<p class="panel-title">Past due, not ticked off</p>'
       + (overdue.length ? '<ul class="agenda overdue">'+overdue.map(i => agendaRow(i.date, i.text, i.goal)).join('')+'</ul>' : '<p class="panel-empty">All caught up.</p>');
   }
