@@ -73,7 +73,7 @@
   .export-action-btn.primary:hover{background:#072a5c;}
   .export-action-btn:hover{border-color:var(--azure);}
 
-  .intro{padding:56px 0 40px;}
+  .intro{padding-top:56px;padding-bottom:28px;}
   .intro .eyebrow{
     font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
     margin:0 0 14px;
@@ -101,7 +101,7 @@
   .summary .num{font-family:var(--display);font-weight:600;font-size:1.5rem;color:var(--blue);letter-spacing:-.01em;line-height:1.25;}
   .summary .lbl{margin-top:6px;font-size:.8rem;color:var(--muted);}
 
-  main{padding:36px 0 80px;}
+  main{padding-top:8px;padding-bottom:80px;}
   .section-heading{
     font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
     margin:0 0 14px;display:flex;align-items:center;gap:10px;
@@ -250,6 +250,56 @@
   }
   .comment-add button:hover{background:#072a5c;}
 
+  /* ---- Dashboard ---- */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:28px;}
+  .kpi{
+    display:block;text-align:left;font:inherit;color:inherit;cursor:pointer;
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px 16px;
+  }
+  .kpi:hover{border-color:var(--azure);}
+  .kpi-name{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .kpi-val{font-family:var(--display);font-weight:600;font-size:1.9rem;color:var(--blue);line-height:1.15;margin-top:6px;}
+  .kpi-val small{font-size:1rem;color:var(--muted);font-weight:500;}
+  .kpi-meter{height:8px;background:var(--paper);border-radius:4px;overflow:hidden;margin:12px 0 10px;}
+  .kpi-meter div{height:100%;background:var(--azure);border-radius:4px;}
+  .kpi-sub{font-size:.78rem;color:var(--muted);line-height:1.45;}
+  .kpi-sub b{color:var(--ink);font-weight:600;}
+
+  .dash-grid{display:grid;grid-template-columns:3fr 2fr;gap:14px;}
+  .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .panel-title{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 12px;}
+  .agenda{list-style:none;margin:0;padding:0;}
+  .agenda li{display:grid;grid-template-columns:62px 1fr;gap:12px;padding:9px 0;border-top:1px solid var(--line);align-items:baseline;}
+  .agenda li:first-child{border-top:0;}
+  .agenda .d{font-family:var(--display);font-weight:600;font-size:.85rem;color:var(--blue);white-space:nowrap;}
+  .agenda .t{font-size:.88rem;color:var(--ink);line-height:1.4;}
+  .agenda .g{display:block;font-size:.72rem;color:var(--muted);margin-top:2px;}
+  .agenda li.event .d{color:var(--gold);}
+  .agenda li.event .t{font-weight:600;}
+  .agenda.overdue .d{color:#a2264b;}
+  .panel-empty{font-size:.88rem;color:var(--muted);margin:0;}
+
+  .goal-head{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;cursor:pointer;}
+  .goal-head h2.goal-title{font-size:1.1rem;margin:6px 0 0;}
+  .goal-head .goal-next{font-size:.8rem;color:var(--muted);margin-top:6px;}
+  .goal-head .goal-next b{color:var(--ink);font-weight:600;}
+  .goal-count{text-align:right;min-width:120px;}
+  .goal-count .n{font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--blue);}
+  .goal-count .kpi-meter{margin:6px 0 0;width:120px;margin-left:auto;}
+  .goal-toggle{background:none;border:0;font:inherit;font-size:.78rem;font-weight:600;color:var(--azure);cursor:pointer;padding:0;margin-top:6px;}
+  .goal-body{margin-top:18px;}
+  .goal-body[hidden]{display:none;}
+  .link-btn{margin-left:auto;background:none;border:0;font:inherit;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:none;color:var(--azure);cursor:pointer;}
+
+  .export-btn{white-space:nowrap;}
+  @media(max-width:720px){
+    .cycle-pill{display:none;}
+    .dash-grid{grid-template-columns:1fr;}
+    .goal-head{grid-template-columns:1fr;}
+    .goal-count{text-align:left;}
+    .goal-count .kpi-meter{margin-left:0;}
+  }
+
   footer{padding:40px clamp(20px,5vw,48px) 60px;border-top:1px solid var(--line);}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end;}
   footer p{margin:0;font-size:.8rem;color:var(--muted);max-width:52ch;line-height:1.6;}
@@ -293,7 +343,7 @@
 <section class="wrap intro">
   <p class="eyebrow">Goals &amp; action plan</p>
   <h1>YPO Regional Member Engagement Goals</h1>
-  <p class="lede">Regional member engagement targets for July 2026 through June 2027, broken down into the subitems from your Monday.com board. Add new tasks under any goal as things come up.</p>
+  <p class="lede">Where each FY26–27 regional member engagement goal stands, what's coming up next, and the task list behind it, synced from the Monday.com board.</p>
   <div class="owner-row">
     <span><b>YPO MENA Management</b> · Tamara Crowhurst</span>
     <span><b>YPO MEO</b> · Dayala Hayeck</span>
@@ -301,28 +351,28 @@
     <span><b>Cycle</b> · Jul 2026 – Jun 2027</span>
   </div>
 
-  <div class="summary">
-    <div class="card"><div class="num">Leaderboard review</div><div class="lbl">Due 30 Jun 2027</div></div>
-    <div class="card"><div class="num">2 Reignite sessions, 50+ each</div><div class="lbl">Due 30 Jun 2027</div></div>
-    <div class="card"><div class="num">9 / 60 vouchers used</div><div class="lbl">Since Sep · Due 30 Nov 2026</div></div>
-    <div class="card"><div class="num">55 / 70 attend Apeiron</div><div class="lbl">So far · Due 30 Nov 2026</div></div>
-  </div>
+  <div class="kpis" id="kpi-root"></div>
 </section>
 
 <main class="wrap">
-  <p class="section-heading">Housekeeping</p>
-  <div id="housekeeping-root"></div>
+  <div class="dash-grid">
+    <div class="panel" id="next-root"></div>
+    <div class="panel" id="overdue-root"></div>
+  </div>
+
+  <p class="section-heading goals-heading">Goals <button type="button" class="link-btn" id="toggle-all">Expand all</button></p>
+  <div id="goals-root"></div>
 
   <p class="section-heading calls-heading">Quarterly Calls</p>
   <div id="calls-root"></div>
 
-  <p class="section-heading goals-heading">Goals</p>
-  <div id="goals-root"></div>
+  <p class="section-heading calls-heading">Housekeeping</p>
+  <div id="housekeeping-root"></div>
 </main>
 
 <footer>
   <div class="wrap">
-    <p><b>MENA Regional Member Engagement</b><br>Management Team: Tamara Crowhurst · YPO MEO: Dayala Hayeck (YPO Lebanon) · Gold MEO: Hachem Ghandour<br>Task data synced from the Monday.com export, 26 Aug 2026.</p>
+    <p><b>MENA Regional Member Engagement</b><br>Management Team: Tamara Crowhurst · YPO MEO: Dayala Hayeck (YPO Lebanon) · Gold MEO: Hachem Ghandour<br>Task data synced from Monday.com, 28 Sep 2026.</p>
   </div>
 </footer>
 
@@ -375,6 +425,7 @@
     {
       id: 'goal1',
       title: 'Complete baseline and mid-point leaderboard review for MEO Competition',
+      short: 'MEO Leaderboard',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
       timeline: '31 Jul 2026 – 30 Jun 2027',
       tasks: [
@@ -388,9 +439,11 @@
     },
     {
       id: 'goal2',
-      title: 'Execute 2 Reignite MENA sessions for existing members with\nat least 50 in attendance',
+      title: 'Execute 2 Reignite MENA sessions for existing members with at least 50 in attendance',
+      short: 'Reignite',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
       timeline: '1 Sep 2026 – 30 Apr 2027',
+      progress: { current: 0, target: 2, label: 'Sessions held' },
       tasks: [
         { id:'goal2-1', text:'Presentation Finalized', owner:'Tamara Crowhurst', when:'14 Aug 2026', defaultChecked:true },
         { id:'goal2-2', text:'Panelists Confirmed', owner:'Tamara Crowhurst', when:'4 Sep 2026' },
@@ -406,6 +459,7 @@
     {
       id: 'goal3',
       title: '60 New Member Vouchers are used',
+      short: 'New Member Vouchers',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
       timeline: '1 Jul 2026 – 30 Jun 2027',
       progress: { current: 9, target: 60, label: 'Vouchers used since Sep' },
@@ -419,6 +473,7 @@
     {
       id: 'goal4',
       title: '70 members and SPs attend Apeiron',
+      short: 'Apeiron',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
       timeline: '1 Jul 2026 – 30 Jun 2027',
       progress: { current: 55, target: 70, label: 'Attendees so far' },
@@ -431,6 +486,15 @@
         { id:'goal4-6', text:'Confirm final attendance count', owner:'Tamara Crowhurst', when:'20 Nov 2026' },
       ]
     },
+  ];
+
+  // Fixed-date events shown in "Coming up" alongside tasks.
+  const KEY_EVENTS = [
+    { date:'18 Nov 2026', text:'Apeiron – Dubai (18–19 Nov)', goal:'goal4' },
+    { date:'21 Nov 2026', text:'MENA Mastery – Dubai' },
+    { date:'15 Mar 2027', text:'GLC Bangkok (15–16 Mar)' },
+    { date:'4 Apr 2027',  text:'CRC Leadership Meeting – Muscat (4–7 Apr)' },
+    { date:'3 May 2027',  text:'GLC & EDGE San Diego (3–6 May)' },
   ];
 
   const OWNER_OPTIONS = ['Tamara Crowhurst','Dayala Hayeck','Hachem Ghandour','Dayala Hayeck & Hachem Ghandour'];
@@ -498,6 +562,75 @@
     return out;
   }
 
+  const MONTHS = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+  // Parses '8 Dec 2026', 'Dec 2026', 'Early Dec 2026' -> Date (no day = 1st), else null.
+  function parseWhen(s){
+    const m = /(?:(\d{1,2})\s+)?([A-Za-z]{3})[a-z]*\s+(\d{4})/.exec(s || '');
+    if(!m || !(m[2].toLowerCase() in MONTHS)) return null;
+    return new Date(+m[3], MONTHS[m[2].toLowerCase()], m[1] ? +m[1] : 1);
+  }
+  function shortDate(d){ return d.getDate() + ' ' + 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[d.getMonth()]; }
+  const TODAY = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
+
+  function goalTasks(g){
+    const gs = store[g.id];
+    return g.tasks.map(t => applyOverride(t, gs.overrides[t.id])).concat(gs.extra)
+      .map(t => ({ task:t, done:isDone(gs, t), date:parseWhen(t.when) }));
+  }
+
+  const OPEN_KEY = STORE_KEY + '-open';
+  let openGoals = new Set();
+  try{ openGoals = new Set(JSON.parse(localStorage.getItem(OPEN_KEY) || '[]')); }catch(e){}
+  function saveOpen(){ try{ localStorage.setItem(OPEN_KEY, JSON.stringify([...openGoals])); }catch(e){} }
+
+  function kpiFor(g){
+    const ts = goalTasks(g);
+    const doneN = ts.filter(x => x.done).length;
+    if(g.progress) return { cur:g.progress.current, target:g.progress.target, label:g.progress.label, tasks:doneN+' / '+ts.length+' tasks done' };
+    return { cur:doneN, target:ts.length, label:'Tasks done', tasks:'' };
+  }
+
+  function renderKpis(){
+    return GOALS.map(g => {
+      const k = kpiFor(g);
+      const pct = k.target ? Math.min(100, Math.round(k.cur / k.target * 100)) : 0;
+      return '<button type="button" class="kpi" data-jump="'+g.id+'">'
+        + '<div class="kpi-name">'+esc(g.short || g.title)+'</div>'
+        + '<div class="kpi-val">'+k.cur+' <small>/ '+k.target+'</small></div>'
+        + '<div class="kpi-meter" role="img" aria-label="'+pct+'% of target"><div style="width:'+pct+'%"></div></div>'
+        + '<div class="kpi-sub"><b>'+pct+'%</b> · '+esc(k.label)+(g.due ? ' · due '+esc(g.due) : '')+'</div>'
+      + '</button>';
+    }).join('');
+  }
+
+  function agendaRow(date, text, goalName, cls){
+    return '<li'+(cls ? ' class="'+cls+'"' : '')+'><span class="d">'+shortDate(date)+'</span>'
+      + '<span class="t">'+esc(text)+(goalName ? '<span class="g">'+esc(goalName)+'</span>' : '')+'</span></li>';
+  }
+
+  function renderAgenda(){
+    const items = [];
+    GOALS.forEach(g => goalTasks(g).forEach(x => { if(!x.done && x.date) items.push({ date:x.date, text:x.task.text, goal:g.short, overdue:x.date < TODAY }); }));
+    KEY_EVENTS.forEach(e => { const d = parseWhen(e.date); if(d && d >= TODAY) items.push({ date:d, text:e.text, event:true }); });
+    QUARTERLY_CALLS.forEach(c => { const d = parseWhen(c.date); if(d && d >= TODAY) items.push({ date:d, text:c.title, goal:c.q, event:true }); });
+    items.sort((a,b) => a.date - b.date);
+    const upcoming = items.filter(i => !i.overdue).slice(0, 7);
+    const overdue = items.filter(i => i.overdue);
+    document.getElementById('next-root').innerHTML = '<p class="panel-title">Coming up</p>'
+      + (upcoming.length ? '<ul class="agenda">'+upcoming.map(i => agendaRow(i.date, i.text, i.goal, i.event ? 'event' : '')).join('')+'</ul>' : '<p class="panel-empty">Nothing scheduled.</p>');
+    document.getElementById('overdue-root').innerHTML = '<p class="panel-title">Past due, not ticked off</p>'
+      + (overdue.length ? '<ul class="agenda overdue">'+overdue.map(i => agendaRow(i.date, i.text, i.goal)).join('')+'</ul>' : '<p class="panel-empty">All caught up.</p>');
+  }
+
+  function renderDashboard(){
+    document.getElementById('kpi-root').innerHTML = renderKpis();
+    renderAgenda();
+    document.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => {
+      openGoals.add(btn.dataset.jump); saveOpen(); renderAll();
+      document.getElementById(btn.dataset.jump).scrollIntoView({ behavior:'smooth', block:'start' });
+    }));
+  }
+
   function renderGoal(g){
     const gs = store[g.id];
     const baseTasks = g.tasks.map(t => applyOverride(t, gs.overrides[t.id]));
@@ -524,14 +657,26 @@
         + '</li>';
     }).join('');
 
+    const collapsible = g !== HOUSEKEEPING;
+    const open = !collapsible || openGoals.has(g.id);
+    const nextUp = goalTasks(g).filter(x => !x.done && x.date).sort((a,b) => a.date - b.date)[0];
     return ''
       + '<section class="goal" id="'+g.id+'" data-goal="'+g.id+'">'
-        + (g.status ? (
-            '<div class="goal-top">'
-              + '<span class="tag '+statusClass(g.status)+'">'+esc(g.status)+'</span>'
+        + (collapsible ? (
+            '<div class="goal-head" data-toggle="'+g.id+'">'
+              + '<div>'
+                + (g.status ? '<span class="tag '+statusClass(g.status)+'">'+esc(g.status)+'</span>' : '')
+                + '<h2 class="goal-title">'+esc(g.title)+'</h2>'
+                + (nextUp ? '<div class="goal-next">Next: <b>'+esc(nextUp.task.text)+'</b> · '+esc(nextUp.task.when)+'</div>' : '')
+              + '</div>'
+              + '<div class="goal-count">'
+                + '<div class="n" data-progress-label>'+checkedCount+' / '+total+'</div>'
+                + '<div class="kpi-meter"><div data-progress-fill style="width:'+pct+'%"></div></div>'
+                + '<button type="button" class="goal-toggle" aria-expanded="'+open+'">'+(open ? 'Hide tasks' : 'Show tasks')+'</button>'
+              + '</div>'
             + '</div>'
           ) : '')
-        + '<h2 class="goal-title">'+esc(g.title)+'</h2>'
+        + '<div class="goal-body"'+(open ? '' : ' hidden')+'>'
         + (g.owner || g.due || g.timeline || g.progress ? (
             '<div class="meta-row">'
               + (g.owner ? '<div><span>YPO MENA Management</span><b>'+esc(g.owner)+'</b></div>' : '')
@@ -540,10 +685,12 @@
               + (g.progress ? '<div><span>'+esc(g.progress.label)+'</span><b>'+g.progress.current+' / '+g.progress.target+' ('+Math.round(g.progress.current/g.progress.target*100)+'%)</b></div>' : '')
             + '</div>'
           ) : '')
-        + '<div class="progress-row">'
-          + '<div class="progress-track"><div class="progress-fill" data-progress-fill style="width:'+pct+'%"></div></div>'
-          + '<span class="progress-label" data-progress-label>'+checkedCount+' / '+total+'</span>'
-        + '</div>'
+        + (collapsible ? '' : (
+            '<div class="progress-row">'
+              + '<div class="progress-track"><div class="progress-fill" data-progress-fill style="width:'+pct+'%"></div></div>'
+              + '<span class="progress-label" data-progress-label>'+checkedCount+' / '+total+'</span>'
+            + '</div>'
+          ))
         + '<ul class="tasks" data-task-list>'+taskRows+'</ul>'
         + '<div class="add-row">'
           + '<input type="text" class="add-text" placeholder="Add a task..." data-add-text>'
@@ -569,6 +716,7 @@
             + '<textarea placeholder="Add a comment..." data-comment-input rows="1"></textarea>'
             + '<button type="button" data-comment-btn>Add comment</button>'
           + '</div>'
+        + '</div>'
         + '</div>'
       + '</section>';
   }
@@ -599,6 +747,11 @@
     document.getElementById('calls-root').innerHTML = renderCalls();
     document.getElementById('goals-root').innerHTML = GOALS.map(renderGoal).join('');
     wireEvents();
+    renderDashboard();
+    const allOpen = GOALS.every(g => openGoals.has(g.id));
+    const ta = document.getElementById('toggle-all');
+    ta.textContent = allOpen ? 'Collapse all' : 'Expand all';
+    ta.onclick = () => { GOALS.forEach(g => allOpen ? openGoals.delete(g.id) : openGoals.add(g.id)); saveOpen(); renderAll(); };
   }
 
   function wireEvents(){
@@ -606,11 +759,18 @@
       const section = document.getElementById(g.id);
       const gs = store[g.id];
 
+      const head = section.querySelector('[data-toggle]');
+      if(head) head.addEventListener('click', () => {
+        openGoals.has(g.id) ? openGoals.delete(g.id) : openGoals.add(g.id);
+        saveOpen(); renderAll();
+      });
+
       section.querySelectorAll('input[type="checkbox"][data-task]').forEach(cb => {
         cb.addEventListener('change', () => {
           gs.checked[cb.dataset.task] = cb.checked;
           saveStore(store);
           updateProgress(g);
+          renderDashboard();
           const textEl = cb.parentElement.querySelector('.task-text');
           if(textEl) textEl.classList.toggle('done', cb.checked);
         });
