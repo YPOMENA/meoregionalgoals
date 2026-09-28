@@ -25,15 +25,11 @@
   .wrap{max-width:960px;margin:0 auto;padding:0 clamp(20px,5vw,48px);}
 
   header.bar{
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:center;justify-content:flex-end;
     padding:20px clamp(20px,5vw,48px);
     border-bottom:1px solid var(--line);
     background:var(--white);
   }
-  .brand{display:flex;align-items:center;gap:10px;}
-  .brand svg{width:22px;height:22px;color:var(--gold);}
-  .brand span{font-family:var(--display);font-weight:600;font-size:.92rem;letter-spacing:.02em;color:var(--blue);}
-  .brand small{display:block;font-size:.66rem;color:var(--muted);font-weight:400;letter-spacing:.03em;}
   .cycle-pill{
     font-size:.72rem;font-weight:600;letter-spacing:.05em;color:var(--blue);
     background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem;
@@ -304,7 +300,7 @@
   .print-stamp{display:none;}
 
   /* ---- PDF / print: a compact report. Every goal expanded, no editing controls.
-     Quarterly calls are already in Important Dates; housekeeping is internal. ---- */
+     Quarterly call cards are left out: their dates are already in Important Dates. ---- */
   @page{size:A4;margin:12mm 12mm 14mm;}
   @media print{
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
@@ -315,7 +311,10 @@
     .intro .lede, .intro .eyebrow, .goal-next, .meta-row, .comments:not(:has(.comment-item)){display:none !important;}
     .goal-body[hidden]{display:block !important;}
     .wrap{max-width:none;padding:0 !important;}
-    header.bar{padding:0 0 8px;border:0;border-bottom:2px solid var(--blue);}
+    header.bar{display:none;}
+    .intro{border-top:3px solid var(--blue);}
+    .hk-heading{margin:18px 0 8px;break-after:avoid;}
+    #housekeeping .progress-row{margin-bottom:6px;}
     .intro{padding:10px 0 0;}
     .intro h1{font-size:1.9rem;margin:0 0 8px;}
     .owner-row{gap:6px;}
@@ -345,7 +344,8 @@
     .task-when{font-size:.85rem;padding:0;min-width:70px;text-align:right;}
     .kpi, .panel, .call-card, .comment-item{break-inside:avoid;}
     .comments{margin-top:8px;padding-top:8px;}
-    footer{padding:10px 0 0;border-top:1px solid var(--line);}
+    footer{display:none;}
+    main{padding-bottom:0 !important;}
   }
 
   footer{padding:40px clamp(20px,5vw,48px) 60px;border-top:1px solid var(--line);}
@@ -363,10 +363,6 @@
 
 
 <header class="bar">
-  <div class="brand">
-    <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12,3 4,19 20,19"/></svg>
-    <span>YPO MENA Member Engagement<small>Synced from Monday.com</small></span>
-  </div>
   <div class="bar-right">
     <button type="button" class="export-btn" id="pdf-btn">Download PDF</button>
     <button type="button" class="export-btn" id="export-btn">Export my data</button>
@@ -416,15 +412,15 @@
   <div class="no-print">
     <p class="section-heading calls-heading">Quarterly Calls</p>
     <div id="calls-root"></div>
-
-    <p class="section-heading calls-heading">Housekeeping</p>
-    <div id="housekeeping-root"></div>
   </div>
+
+  <p class="section-heading calls-heading hk-heading">Housekeeping</p>
+  <div id="housekeeping-root"></div>
 </main>
 
 <footer>
   <div class="wrap">
-    <p><b>MENA Regional Member Engagement</b><br>Management Team: Tamara Crowhurst · YPO MEO: Dayala Hayeck (YPO Lebanon) · Gold MEO: Hachem Ghandour<br>Task data synced from Monday.com, 28 Sep 2026.</p>
+    <p><b>MENA Regional Member Engagement</b><br>Management Team: Tamara Crowhurst · YPO MEO: Dayala Hayeck (YPO Lebanon) · Gold MEO: Hachem Ghandour<br>Goal and task dates synced from Monday.com, 28 Sep 2026.</p>
   </div>
 </footer>
 
@@ -499,7 +495,7 @@
       title: 'Execute 2 Reignite MENA sessions for existing members with at least 50 in attendance',
       short: 'Reignite',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
-      timeline: '1 Sep 2026 – 30 Apr 2027',
+      timeline: '1 Sep 2026 – 31 Mar 2027',
       progress: { current: 0, target: 2, label: 'Sessions held' },
       tasks: [
         { id:'goal2-1', text:'Presentation Finalized', owner:'Tamara Crowhurst', when:'14 Aug 2026', defaultChecked:true },
@@ -516,7 +512,7 @@
       id: 'goal3',
       title: '60 New Member Vouchers are used',
       short: 'New Member Vouchers',
-      owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
+      owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
       timeline: '1 Jul 2026 – 30 Jun 2027',
       progress: { current: 9, target: 60, label: 'Vouchers used since Sep' },
       tasks: [
@@ -530,7 +526,7 @@
       id: 'goal4',
       title: '70 members and SPs attend Apeiron',
       short: 'Apeiron',
-      owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
+      owner: 'Tamara Crowhurst', status: 'Working on it', due: '20 Nov 2026',
       timeline: '1 Jul 2026 – 30 Jun 2027',
       progress: { current: 55, target: 70, label: 'Attendees so far' },
       tasks: [
