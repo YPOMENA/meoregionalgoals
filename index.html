@@ -300,6 +300,31 @@
     .goal-count .kpi-meter{margin-left:0;}
   }
 
+  .print-stamp{display:none;}
+
+  /* ---- PDF / print: every goal expanded, no editing controls ---- */
+  @page{size:A4;margin:14mm 12mm;}
+  @media print{
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{background:#fff;font-size:11px;}
+    .bar-right, .export-overlay, .add-row, .comment-add, .comment-remove, .task-remove,
+    .goal-toggle, .link-btn, .task-owner.is-empty, .task-when.is-empty{display:none !important;}
+    .goal-body[hidden]{display:block !important;}
+    header.bar{padding:0 0 10px;border:0;}
+    .wrap{max-width:none;padding:0;}
+    .intro{padding:8px 0 12px;}
+    .intro .lede{display:none;}
+    .print-stamp{display:block;font-size:.8rem;color:var(--muted);margin:10px 0 0;}
+    .kpis{grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
+    .dash-grid{grid-template-columns:3fr 2fr;}
+    .kpi, .panel, section.goal, .call-card{break-inside:avoid;box-shadow:none;}
+    section.goal{padding:16px 18px;margin-bottom:10px;}
+    .tasks li{break-inside:avoid;}
+    .comments:not(:has(.comment-item)){display:none;}
+    .calls-grid{grid-template-columns:repeat(2,1fr);}
+    footer{padding:16px 0 0;}
+  }
+
   footer{padding:40px clamp(20px,5vw,48px) 60px;border-top:1px solid var(--line);}
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:flex-end;}
   footer p{margin:0;font-size:.8rem;color:var(--muted);max-width:52ch;line-height:1.6;}
@@ -320,6 +345,7 @@
     <span>YPO MENA Member Engagement<small>Synced from Monday.com</small></span>
   </div>
   <div class="bar-right">
+    <button type="button" class="export-btn" id="pdf-btn">Download PDF</button>
     <button type="button" class="export-btn" id="export-btn">Export my data</button>
     <span class="cycle-pill">FY26–27</span>
   </div>
@@ -351,6 +377,7 @@
     <span><b>Cycle</b> · Jul 2026 – Jun 2027</span>
   </div>
 
+  <p class="print-stamp" id="print-stamp"></p>
   <div class="kpis" id="kpi-root"></div>
 </section>
 
@@ -381,9 +408,14 @@
     id: 'housekeeping',
     title: 'Housekeeping',
     tasks: [
-      { id:'hk-1', text:'Confirm dates for the quarterly calls so invitations can be sent well in advance.', owner:'', when:'' },
-      { id:'hk-2', text:'Agree on a regular check-in cadence (biweekly or monthly for the 3 of us) to stay aligned, track progress, and address any emerging priorities.', owner:'', when:'' },
-      { id:'hk-3', text:'Decide how to divide officer outreach between Dayala and Hachem.', owner:'Dayala Hayeck & Hachem Ghandour', when:'' },
+      { id:'hk-1', text:'Confirm dates for the quarterly calls so invitations can be sent well in advance.', owner:'', when:'', defaultChecked:true },
+      { id:'hk-2', text:'Agree on a regular check-in cadence (biweekly or monthly for the 3 of us) to stay aligned, track progress, and address any emerging priorities.', owner:'', when:'', defaultChecked:true },
+      { id:'hk-3', text:'Decide how to divide officer outreach between Dayala and Hachem.', owner:'Dayala Hayeck & Hachem Ghandour', when:'', defaultChecked:true },
+      { id:'housekeeping-xmul49mkxzocs', text:'Decide on who to sub for Hachem during MENA Mastery.', owner:'Dayala Hayeck & Hachem Ghandour', when:'5 Oct 2026' },
+      { id:'housekeeping-xmul48z42wlf5', text:'MENA Mastery registration: reach out to Officers directly to encourage sign-up', owner:'Dayala Hayeck & Hachem Ghandour', when:'12 Oct 2026' },
+    ],
+    comments: [
+      { id:'housekeeping-cmrli9q3odz2i', ts:'2026-07-15T03:13:29.700Z', text:'Proposed Dates for MEO Quarterly Calls\nQ1 Quarterly Call: September 3rd 2026\nQ2 Quarterly Call: MENA Mastery  (21 November 2026)\nQ3 Quarterly Call: March 8th 2027\nQ4 Quarterly Call & Handover: May 25th 2027' },
     ]
   };
 
@@ -432,9 +464,9 @@
         { id:'goal1-1', text:'Share baseline standings with RMEOs', owner:'Tamara Crowhurst', when:'11 Aug 2026', defaultChecked:true },
         { id:'goal1-2', text:'Obtain Budget for Prizes', owner:'Tamara Crowhurst', when:'28 Aug 2026', defaultChecked:true },
         { id:'goal1-3', text:'Create a communication plan for competition', owner:'Tamara Crowhurst', when:'28 Aug 2026', defaultChecked:true },
-        { id:'goal1-4', text:'Launch Leaderboard on WA Channel + Quarterly Call', owner:'Tamara Crowhurst', when:'3 Sep 2026', defaultChecked:true },
+        { id:'goal1-4', text:'Launch Leaderboard on WA Channel + Quarterly Call', owner:'Dayala Hayeck & Hachem Ghandour', when:'3 Sep 2026', defaultChecked:true },
         { id:'goal1-5', text:'Send Quarterly Updates to MEOs', owner:'Tamara Crowhurst', when:'1 Oct 2026' },
-        { id:'goal1-6', text:'Recognize Winners in 2027 RBM', owner:'Tamara Crowhurst', when:'15 May 2027' },
+        { id:'goal1-6', text:'Recognize Winners in 2027 RBM', owner:'Dayala Hayeck & Hachem Ghandour', when:'15 May 2027' },
       ]
     },
     {
@@ -447,10 +479,10 @@
       tasks: [
         { id:'goal2-1', text:'Presentation Finalized', owner:'Tamara Crowhurst', when:'14 Aug 2026', defaultChecked:true },
         { id:'goal2-2', text:'Panelists Confirmed', owner:'Tamara Crowhurst', when:'4 Sep 2026' },
-        { id:'goal2-3', text:'Promote first Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'2 Nov 2026' },
-        { id:'goal2-4', text:'Date First Reignite Session', owner:'Tamara Crowhurst', when:'8 Dec 2026' },
-        { id:'goal2-5', text:'Promote second Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'1 Feb 2027' },
-        { id:'goal2-6', text:'Date Second Reignite Session', owner:'Tamara Crowhurst', when:'14 Apr 2027' },
+        { id:'goal2-3', text:'Promote first Reignite session (25 attendees)', owner:'Dayala Hayeck & Hachem Ghandour', when:'2 Nov 2026' },
+        { id:'goal2-4', text:'Date First Reignite Session', owner:'Dayala Hayeck & Hachem Ghandour', when:'8 Dec 2026' },
+        { id:'goal2-5', text:'Promote second Reignite session (25 attendees)', owner:'Dayala Hayeck & Hachem Ghandour', when:'1 Feb 2027' },
+        { id:'goal2-6', text:'Date Second Reignite Session', owner:'Dayala Hayeck & Hachem Ghandour', when:'14 Apr 2027' },
         { id:'goal2-7', text:'Mark Attendees for both sessions on CVENT', owner:'Tamara Crowhurst', when:'23 Apr 2027' },
         { id:'goal2-8', text:'Collect Survey Feedback', owner:'Tamara Crowhurst', when:'30 Apr 2027' },
       ],
@@ -466,7 +498,7 @@
       tasks: [
         { id:'goal3-1', text:'Pull baseline data on unused vouchers', owner:'Tamara Crowhurst', when:'14 Jul 2026', defaultChecked:true },
         { id:'goal3-2', text:'Create a list of all events accepting NVM', owner:'Tamara Crowhurst', when:'31 Oct 2026' },
-        { id:'goal3-3', text:'Circulate unused-voucher list to Chapter Chairs and MEOs', owner:'Tamara Crowhurst', when:'1 Sep 2026', defaultChecked:true },
+        { id:'goal3-3', text:'Circulate unused-voucher list to Chapter Chairs and MEOs', owner:'Dayala Hayeck', when:'1 Sep 2026', defaultChecked:true },
         { id:'goal3-4', text:'Report usage progress on each quarterly MEO call', owner:'Tamara Crowhurst', when:'1 Oct 2026' },
       ]
     },
@@ -479,10 +511,10 @@
       progress: { current: 55, target: 70, label: 'Attendees so far' },
       tasks: [
         { id:'goal4-1', text:'Reach out to Apeiron for Marketing Assets', owner:'Tamara Crowhurst', when:'17 Jul 2026', defaultChecked:true },
-        { id:'goal4-2', text:'Promote Apeiron region-wide via chapter channels', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
-        { id:'goal4-3', text:'Promote Apeiron on MEO Quarterly Calls', owner:'Tamara Crowhurst', when:'3 Sep 2026', defaultChecked:true },
-        { id:'goal4-4', text:'Track registration numbers monthly', owner:'Tamara Crowhurst', when:'18 Sep 2026' },
-        { id:'goal4-5', text:'Follow up with chapters trending below target', owner:'Tamara Crowhurst', when:'5 Oct 2026' },
+        { id:'goal4-2', text:'Promote Apeiron region-wide via chapter channels', owner:'Dayala Hayeck', when:'14 Aug 2026', defaultChecked:true },
+        { id:'goal4-3', text:'Promote Apeiron on MEO Quarterly Calls', owner:'Dayala Hayeck', when:'3 Sep 2026', defaultChecked:true },
+        { id:'goal4-4', text:'Track registration numbers monthly', owner:'Tamara Crowhurst', when:'18 Sep 2026', defaultChecked:true },
+        { id:'goal4-5', text:'Follow up with chapters trending below target', owner:'Dayala Hayeck & Hachem Ghandour', when:'5 Oct 2026' },
         { id:'goal4-6', text:'Confirm final attendance count', owner:'Tamara Crowhurst', when:'20 Nov 2026' },
       ]
     },
@@ -525,6 +557,15 @@
     if(!store[g.id].extra) store[g.id].extra = [];
     if(!store[g.id].overrides) store[g.id].overrides = {};
     if(!store[g.id].comments) store[g.id].comments = [];
+  });
+
+  // Items exported from a browser and baked into the page above replace that browser's own copies.
+  [HOUSEKEEPING, ...GOALS].forEach(g => {
+    const gs = store[g.id];
+    const taskIds = new Set(g.tasks.map(t => t.id));
+    const commentIds = new Set((g.comments || []).map(c => c.id));
+    gs.extra = gs.extra.filter(t => !taskIds.has(t.id));
+    gs.comments = gs.comments.filter(c => !commentIds.has(c.id));
   });
 
   function esc(s){
@@ -610,7 +651,7 @@
 
   function renderAgenda(){
     const items = [];
-    GOALS.forEach(g => goalTasks(g).forEach(x => { if(!x.done && x.date) items.push({ date:x.date, text:x.task.text, goal:g.short, overdue:x.date < TODAY }); }));
+    GOALS.concat(HOUSEKEEPING).forEach(g => goalTasks(g).forEach(x => { if(!x.done && x.date) items.push({ date:x.date, text:x.task.text, goal:g.short || g.title, overdue:x.date < TODAY }); }));
     KEY_EVENTS.forEach(e => { const d = parseWhen(e.date); if(d && d >= TODAY) items.push({ date:d, text:e.text, event:true }); });
     QUARTERLY_CALLS.forEach(c => { const d = parseWhen(c.date); if(d && d >= TODAY) items.push({ date:d, text:c.title, goal:c.q, event:true }); });
     items.sort((a,b) => a.date - b.date);
@@ -702,12 +743,12 @@
         + '<div class="comments" data-comments>'
           + '<p class="comments-heading">Comments</p>'
           + '<ul class="comment-list">'
-            + gs.comments.map(c =>
+            + (g.comments || []).map(c => Object.assign({ baked:true }, c)).concat(gs.comments).map(c =>
                 '<li class="comment-item">'
                   + '<div class="comment-text">'+esc(c.text)+'</div>'
                   + '<div class="comment-meta">'
                     + '<span class="comment-date">'+esc(formatStamp(c.ts))+'</span>'
-                    + '<button class="comment-remove" data-remove-comment="'+c.id+'" title="Remove comment" aria-label="Remove comment">&times;</button>'
+                    + (c.baked ? '' : '<button class="comment-remove" data-remove-comment="'+c.id+'" title="Remove comment" aria-label="Remove comment">&times;</button>')
                   + '</div>'
                 + '</li>'
               ).join('')
@@ -907,6 +948,15 @@
   }
 
   renderAll();
+
+  // ---- Download PDF (browser print dialog -> "Save as PDF") ----
+  document.getElementById('pdf-btn').addEventListener('click', () => {
+    document.getElementById('print-stamp').textContent = 'Status as of ' + TODAY.toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+    const prevTitle = document.title;
+    document.title = 'YPO MENA Member Engagement Goals - ' + TODAY.toISOString().slice(0,10);
+    window.print();
+    document.title = prevTitle;
+  });
 
   // ---- Export my data ----
   const exportBtn = document.getElementById('export-btn');
