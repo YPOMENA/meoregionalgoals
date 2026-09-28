@@ -524,7 +524,12 @@
   // Shown under "Important Dates" together with the quarterly calls.
   const KEY_EVENTS = [
     { date:'18 Nov 2026', text:'Apeiron – Dubai', sub:'18–19 Nov' },
-    { date:'18 Nov 2026', text:'Q2 REX – Dubai (TBC)', sub:'18–20 Nov' },
+    { date:'20 Nov 2026', text:'Q2 REX – Dubai', sub:'20–22 Nov' },
+  ];
+  // Session dates come from the Reignite goal's own tasks, so they follow Monday.com updates.
+  const REIGNITE_SESSIONS = [
+    { task:'goal2-4', text:'Reignite MENA – Session 1' },
+    { task:'goal2-6', text:'Reignite MENA – Session 2' },
   ];
 
   const OWNER_OPTIONS = ['Tamara Crowhurst','Dayala Hayeck','Hachem Ghandour','Dayala Hayeck & Hachem Ghandour'];
@@ -652,8 +657,11 @@
     GOALS.concat(HOUSEKEEPING).forEach(g => goalTasks(g).forEach(x => { if(!x.done && x.date) items.push({ date:x.date, text:x.task.text, goal:g.short || g.title, overdue:x.date < TODAY }); }));
     const overdue = items.filter(i => i.overdue).sort((a,b) => a.date - b.date);
 
+    const reignite = goalTasks(GOALS.find(g => g.id === 'goal2'));
     const dates = KEY_EVENTS.map(e => ({ date:parseWhen(e.date), text:e.text, sub:e.sub }))
-      .concat(QUARTERLY_CALLS.map(c => ({ date:parseWhen(c.date), text:c.title, sub:c.q.replace(' · FY26–27', '') + ' quarterly call · ' + c.location })))
+      .concat(REIGNITE_SESSIONS.map(r => { const x = reignite.find(y => y.task.id === r.task); return { date:x && x.date, text:r.text }; }))
+      .concat(QUARTERLY_CALLS.map(c => ({ date:parseWhen(c.date), text:c.title,
+        sub:c.title === 'MENA Mastery' ? '' : c.q.replace(' · FY26–27', '') + ' quarterly call · ' + c.location })))
       .filter(i => i.date).sort((a,b) => a.date - b.date);
     document.getElementById('next-root').innerHTML = '<p class="panel-title">Important Dates</p>'
       + '<ul class="agenda">'+dates.map(i => agendaRow(i.date, i.text, i.sub, i.date < TODAY ? 'event past' : 'event')).join('')+'</ul>';
