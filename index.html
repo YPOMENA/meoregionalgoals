@@ -303,27 +303,49 @@
 
   .print-stamp{display:none;}
 
-  /* ---- PDF / print: every goal expanded, no editing controls ---- */
-  @page{size:A4;margin:14mm 12mm;}
+  /* ---- PDF / print: a compact report. Every goal expanded, no editing controls.
+     Quarterly calls are already in Important Dates; housekeeping is internal. ---- */
+  @page{size:A4;margin:12mm 12mm 14mm;}
   @media print{
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    body{background:#fff;font-size:11px;}
-    .bar-right, .export-overlay, .add-row, .comment-add, .comment-remove, .task-remove,
-    .goal-toggle, .link-btn, .task-owner.is-empty, .task-when.is-empty{display:none !important;}
+    html{font-size:10.5px;}
+    body{background:#fff;}
+    .no-print, .bar-right, .export-overlay, .add-row, .comment-add, .comment-remove, .task-remove,
+    .goal-toggle, .link-btn, .task-owner.is-empty, .task-when.is-empty,
+    .intro .lede, .intro .eyebrow, .goal-next, .meta-row, .comments:not(:has(.comment-item)){display:none !important;}
     .goal-body[hidden]{display:block !important;}
-    header.bar{padding:0 0 10px;border:0;}
-    .wrap{max-width:none;padding:0;}
-    .intro{padding:8px 0 12px;}
-    .intro .lede{display:none;}
-    .print-stamp{display:block;font-size:.8rem;color:var(--muted);margin:10px 0 0;}
+    .wrap{max-width:none;padding:0 !important;}
+    header.bar{padding:0 0 8px;border:0;border-bottom:2px solid var(--blue);}
+    .intro{padding:10px 0 0;}
+    .intro h1{font-size:1.9rem;margin:0 0 8px;}
+    .owner-row{gap:6px;}
+    .owner-row span{padding:.2rem .6rem;font-size:.85rem;}
+    .print-stamp{display:block;font-size:.9rem;color:var(--muted);margin:8px 0 0;}
     .kpis{grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
-    .dash-grid{grid-template-columns:3fr 2fr;}
-    .kpi, .panel, section.goal, .call-card{break-inside:avoid;box-shadow:none;}
-    section.goal{padding:16px 18px;margin-bottom:10px;}
-    .tasks li{break-inside:avoid;}
-    .comments:not(:has(.comment-item)){display:none;}
-    .calls-grid{grid-template-columns:repeat(2,1fr);}
-    footer{padding:16px 0 0;}
+    .kpi{padding:10px 12px;border-radius:10px;}
+    .kpi-val{font-size:1.7rem;}
+    .kpi-meter{margin:8px 0 6px;height:6px;}
+    main{padding:12px 0 0;}
+    .dash-grid{grid-template-columns:3fr 2fr;gap:8px;}
+    .panel{padding:12px 14px;border-radius:10px;}
+    .agenda li{padding:5px 0;grid-template-columns:52px 1fr;}
+    .section-heading.goals-heading{margin:18px 0 8px;}
+    section.goal{padding:12px 14px;margin:0 0 8px;border-radius:10px;box-shadow:none;}
+    .goal-head{break-after:avoid;}
+    .goal-head h2.goal-title{font-size:1.2rem;margin-top:4px;}
+    .goal-body{margin-top:8px;}
+    ul.tasks li{display:grid;grid-template-columns:14px 1fr;gap:8px;padding:4px 0;break-inside:avoid;}
+    ul.tasks input[type="checkbox"]{width:12px;height:12px;margin-top:2px;border-radius:3px;}
+    ul.tasks input[type="checkbox"]:checked::after{display:none;}
+    footer, footer .wrap{padding-left:0 !important;padding-right:0 !important;}
+    .task-main{display:flex;justify-content:space-between;gap:12px;align-items:baseline;}
+    .task-text{font-size:1rem;}
+    .task-sub{margin:0;flex:none;gap:6px;}
+    .task-owner{font-size:.85rem;padding:.05rem .4rem;}
+    .task-when{font-size:.85rem;padding:0;min-width:70px;text-align:right;}
+    .kpi, .panel, .call-card, .comment-item{break-inside:avoid;}
+    .comments{margin-top:8px;padding-top:8px;}
+    footer{padding:10px 0 0;border-top:1px solid var(--line);}
   }
 
   footer{padding:40px clamp(20px,5vw,48px) 60px;border-top:1px solid var(--line);}
@@ -391,11 +413,13 @@
   <p class="section-heading goals-heading">Goals <button type="button" class="link-btn" id="toggle-all">Expand all</button></p>
   <div id="goals-root"></div>
 
-  <p class="section-heading calls-heading">Quarterly Calls</p>
-  <div id="calls-root"></div>
+  <div class="no-print">
+    <p class="section-heading calls-heading">Quarterly Calls</p>
+    <div id="calls-root"></div>
 
-  <p class="section-heading calls-heading">Housekeeping</p>
-  <div id="housekeeping-root"></div>
+    <p class="section-heading calls-heading">Housekeeping</p>
+    <div id="housekeeping-root"></div>
+  </div>
 </main>
 
 <footer>
@@ -487,7 +511,6 @@
         { id:'goal2-7', text:'Mark Attendees for both sessions on CVENT', owner:'Tamara Crowhurst', when:'23 Apr 2027' },
         { id:'goal2-8', text:'Collect Survey Feedback', owner:'Tamara Crowhurst', when:'30 Apr 2027' },
       ],
-      note: "Note: the board lists \"Build baseline scorecard for the MEO Competition\" as a subitem of goal 1 but it still has no date/row of its own — you may want to add it back in with a due date."
     },
     {
       id: 'goal3',
