@@ -232,8 +232,8 @@
   <div class="summary">
     <div class="card"><div class="num">Leaderboard review</div><div class="lbl">Due 30 Jun 2027</div></div>
     <div class="card"><div class="num">2 Reignite sessions, 50+ each</div><div class="lbl">Due 30 Jun 2027</div></div>
-    <div class="card"><div class="num">60 vouchers used</div><div class="lbl">Due 30 Nov 2026</div></div>
-    <div class="card"><div class="num">70 attend Apeiron</div><div class="lbl">Due 30 Nov 2026</div></div>
+    <div class="card"><div class="num">9 / 60 vouchers used</div><div class="lbl">Since Sep · Due 30 Nov 2026</div></div>
+    <div class="card"><div class="num">55 / 70 attend Apeiron</div><div class="lbl">So far · Due 30 Nov 2026</div></div>
   </div>
 </section>
 
@@ -280,16 +280,16 @@
       id: 'goal2',
       title: 'Execute 2 Reignite MENA sessions for existing members with\nat least 50 in attendance',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Jun 2027',
-      timeline: '1 Sep 2026 – 31 Mar 2027',
+      timeline: '1 Sep 2026 – 30 Apr 2027',
       tasks: [
         { id:'goal2-1', text:'Presentation Finalized', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
         { id:'goal2-2', text:'Panelists Confirmed', owner:'Tamara Crowhurst', when:'21 Aug 2026' },
         { id:'goal2-3', text:'Promote first Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'1 Sep 2026' },
-        { id:'goal2-4', text:'Date First Reignite Session', owner:'Tamara Crowhurst', when:'15 Oct 2026' },
+        { id:'goal2-4', text:'Date First Reignite Session', owner:'Tamara Crowhurst', when:'8 Dec 2026' },
         { id:'goal2-5', text:'Promote second Reignite session (25 attendees)', owner:'Tamara Crowhurst', when:'4 Jan 2027' },
-        { id:'goal2-6', text:'Date Second Reignite Session', owner:'Tamara Crowhurst', when:'12 Feb 2027' },
-        { id:'goal2-7', text:'Mark Attendees for both sessions on CVENT', owner:'Tamara Crowhurst', when:'15 Feb 2027' },
-        { id:'goal2-8', text:'Collect Survey Feedback', owner:'Tamara Crowhurst', when:'1 Mar 2027' },
+        { id:'goal2-6', text:'Date Second Reignite Session', owner:'Tamara Crowhurst', when:'14 Apr 2027' },
+        { id:'goal2-7', text:'Mark Attendees for both sessions on CVENT', owner:'Tamara Crowhurst', when:'23 Apr 2027' },
+        { id:'goal2-8', text:'Collect Survey Feedback', owner:'Tamara Crowhurst', when:'30 Apr 2027' },
       ],
       note: "Note: the board lists \"Build baseline scorecard for the MEO Competition\" as a subitem of goal 1 but it has no date/row of its own — you may want to add it back in with a due date."
     },
@@ -298,9 +298,10 @@
       title: '60 New Member Vouchers are used',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
       timeline: '1 Jul 2026 – 30 Jun 2027',
+      progress: { current: 9, target: 60, label: 'Vouchers used since Sep' },
       tasks: [
         { id:'goal3-1', text:'Pull baseline data on unused vouchers', owner:'Tamara Crowhurst', when:'14 Jul 2026' },
-        { id:'goal3-2', text:'Create a list of all events accepting NVM', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
+        { id:'goal3-2', text:'Create a list of all events accepting NVM', owner:'Tamara Crowhurst', when:'31 Oct 2026' },
         { id:'goal3-3', text:'Circulate unused-voucher list to Chapter Chairs and MEOs', owner:'Tamara Crowhurst', when:'1 Sep 2026' },
         { id:'goal3-4', text:'Report usage progress on each quarterly MEO call', owner:'Tamara Crowhurst', when:'1 Oct 2026' },
       ]
@@ -310,6 +311,7 @@
       title: '70 members and SPs attend Apeiron',
       owner: 'Tamara Crowhurst', status: 'Working on it', due: '30 Nov 2026',
       timeline: '1 Jul 2026 – 30 Jun 2027',
+      progress: { current: 55, target: 70, label: 'Attendees so far' },
       tasks: [
         { id:'goal4-1', text:'Reach out to Apeiron for Marketing Assets', owner:'Tamara Crowhurst', when:'17 Jul 2026' },
         { id:'goal4-2', text:'Promote Apeiron region-wide via chapter channels', owner:'Tamara Crowhurst', when:'14 Aug 2026' },
@@ -408,11 +410,12 @@
             + '</div>'
           ) : '')
         + '<h2 class="goal-title">'+esc(g.title)+'</h2>'
-        + (g.owner || g.due || g.timeline ? (
+        + (g.owner || g.due || g.timeline || g.progress ? (
             '<div class="meta-row">'
               + (g.owner ? '<div><span>YPO MENA Management</span><b>'+esc(g.owner)+'</b></div>' : '')
               + (g.due ? '<div><span>Due date</span><b>'+esc(g.due)+'</b></div>' : '')
               + (g.timeline ? '<div><span>Timeline</span><b>'+esc(g.timeline)+'</b></div>' : '')
+              + (g.progress ? '<div><span>'+esc(g.progress.label)+'</span><b>'+g.progress.current+' / '+g.progress.target+' ('+Math.round(g.progress.current/g.progress.target*100)+'%)</b></div>' : '')
             + '</div>'
           ) : '')
         + '<div class="progress-row">'
